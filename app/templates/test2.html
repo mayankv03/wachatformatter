@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>WaChatFormatter by Mayankv03</title>
+    <link id="favicon" rel="shortcut icon" type="image/png" href="/static/css/icon.png" src="css/icon.png">
+    <link rel="stylesheet" href="/static/css/index.css">
+</head>
+
+<body>
+
+    <div class="header" id="myHeader">
+        <h2 style="text-align: center;">WhatsApp Chat Formatter by Mayankv03</h2>
+        <div class="progress-container">
+            <div class="progress-bar" id="myBar"></div>
+        </div>
+    </div>
+
+    <div class="content">
+        {% for i in context %}
+        <div class="row">
+            {{i}}
+        </div>
+        {% endfor %}
+
+    </div>
+    <br><br>
+    <div class="footer">
+        <p>Designed by <a class="link" target="_blank" href="https://linkedin.com/in/mayankv03">@Mayankv03</a></p>
+    </div>
+
+    <script src="/static/js/index.js"></script>
+
+</body>
+
+</html>

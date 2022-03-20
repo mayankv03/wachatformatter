@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html class="js serviceworker adownload cssanimations csstransitions webp exiforientation webp-alpha webp-animation webp-lossless" dir="LTR" loc="en-GB" lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>WhatsApp Chat Formatter by Mayankv03</title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="google" content="notranslate">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="description" content="Quickly send and receive WhatsApp messages right from your computer.">
+    <meta name="og:description" content="Quickly send and receive WhatsApp messages right from your computer.">
+    <meta name="og:url" content="https://web.whatsapp.com/">
+    <meta name="og:title" content="WhatsApp Web">
+    <meta name="og:image" content="https://static.facebook.com/images/whatsapp/www/whatsapp-promo.png">
+    <link rel="apple-touch-icon" sizes="194x194" href="/static/css/apple-touch-icon.png" type="image/png">
+    <style>
+        #initial_startup {
+            --startup-background: #f0f2f5;
+            --startup-background-rgb: 240, 242, 245;
+            --startup-icon: #bbc5cb;
+            --secondary-lighter: #8696a0;
+            --primary-title: #41525d;
+            --progress-primary: #00c298;
+            --progress-background: #e9edef
+        }
+        
+        .dark #initial_startup {
+            --startup-background: #111b21;
+            --startup-background-rgb: 17, 27, 33;
+            --startup-icon: #676f73;
+            --primary-title: rgba(233, 237, 239, 0.88);
+            --secondary-lighter: #667781;
+            --progress-primary: #0b846d;
+            --progress-background: #233138
+        }
+        
+        #app,
+        body,
+        html {
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            margin: 0;
+            overflow: hidden
+        }
+        
+        #app {
+            position: absolute;
+            top: 0;
+            left: 0
+        }
+        
+        #initial_startup {
+            position: fixed;
+            top: 0;
+            left: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 100%;
+            user-select: none;
+            background-color: var(--startup-background)
+        }
+        
+        #initial_startup .graphic {
+            margin-top: -40px;
+            color: var(--startup-icon)
+        }
+        
+        #initial_startup .graphic .resume-logo {
+            transform: translateX(calc(50% - 52px / 2))
+        }
+        
+        #initial_startup .graphic::after {
+            position: relative;
+            top: -100%;
+            left: calc(50% - 72px * 2 - 72px / 2);
+            display: block;
+            width: calc(72px * 3);
+            height: 100%;
+            content: '';
+            background: linear-gradient(to right, rgba(var(--startup-background-rgb), .5) 0, rgba(var(--startup-background-rgb), .5) 33.33%, rgba(var(--startup-background-rgb), 0) 44.1%, rgba(var(--startup-background-rgb), 0) 55.8%, rgba(var(--startup-background-rgb), .5) 66.66%, rgba(var(--startup-background-rgb), .5) 100%);
+            opacity: 1;
+            animation: shimmer 1.5s linear .6s infinite
+        }
+        
+        html[dir=rtl] #initial_startup .graphic::after {
+            animation-direction: reverse
+        }
+        
+        @keyframes shimmer {
+            from {
+                left: calc(50% - 72px * 2 - 72px / 2)
+            }
+            to {
+                left: calc(50% - 72px / 2)
+            }
+        }
+        
+        #initial_startup .progress {
+            position: relative;
+            width: 420px;
+            height: 3px;
+            margin-top: 40px
+        }
+        
+        #initial_startup .progress progress {
+            vertical-align: top
+        }
+        
+        #initial_startup .main {
+            margin-top: 40px;
+            font-size: 17px;
+            color: var(--primary-title)
+        }
+        
+        #initial_startup .secondary {
+            margin-top: 12px;
+            font-size: 14px;
+            color: var(--secondary-lighter)
+        }
+        
+        #initial_startup .secondary span {
+            display: inline-block;
+            margin-bottom: 2px;
+            vertical-align: middle
+        }
+        
+        progress {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 100%;
+            height: 3px;
+            margin: 0;
+            color: var(--progress-primary);
+            background-color: var(--progress-background);
+            border: none
+        }
+        
+        progress[value]::-webkit-progress-bar {
+            background-color: var(--progress-background)
+        }
+        
+        progress[value]::-moz-progress-bar,
+        progress[value]::-webkit-progress-value {
+            background-color: var(--progress-primary);
+            transition: width .45s ease
+        }
+    </style>
+    <link href="/static/css/stylex.css" rel="stylesheet">
+    <link href="/static/css/bootstrap.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/static/css/bootstrap_main.css">
+    <link id="favicon" rel="shortcut icon" type="image/png" href="/static/css/icon.png" src="css/icon.png">
+</head>
+
+<body class="web dark">
+    <script data-binary-transparency-hash-key="inline-js-4b79b6dc91a7ee33373b115991c3eb287ed710cfb6708421b4cab682eddbfcbd">
+        try {
+            var systemThemeDark, theme = window.localStorage.getItem(""),
+                systemThemeMode = window.localStorage.getItem("system-theme-mode");
+            if (("true" === systemThemeMode || !theme) && window.matchMedia) {
+                var systemTheme = window.matchMedia("(prefers-color-scheme: dark)");
+                systemThemeDark = systemTheme && systemTheme.matches
+            }
+            var darkTheme = '"dark"' === theme || Boolean(systemThemeDark);
+            darkTheme && document.body.classList.add("dark")
+        } catch (e) {}
+    </script>
+    <div id="app">
+        <div class="_1ADa8 _3Nsgw app-wrapper-web os-win"><span></span><span></span><span></span><span></span><span></span>
+            <div tabindex="-1" class="_1XkO3 two">
+
+                <div class="ldL67 _3sh5K">
+                    <div id="main" class="_1fqrG" data-testid="conversation-panel-wrapper">
+                        <div class="_1PzAL" data-asset-chat-background-dark="true" style="opacity: 0.06;"></div>
+                        <header class="_23P3O">
+                            <div class="_2YnE3" title="Profile Details" role="button">
+                                <div class="_3GlyB" style="height: 40px; width: 40px;">
+                                    <div class="_1lPgH"><span data-testid="default-group" data-icon="default-group" class=""><svg
+                        width="212" height="212" viewBox="0 0 212 212" fill="none" class="">
+                        <path class="background"
+                          d="M105.946.25C164.318.25 211.64 47.596 211.64 106s-47.322 105.75-105.695 105.75C47.571 211.75.25 164.404.25 106S47.571.25 105.946.25Z"
+                          fill="#DFE5E7"></path>
+                        <path class="primary" clip-rule="evenodd"
+                          d="M102.282 77.286c0 10.671-8.425 19.285-18.94 19.285s-19.003-8.614-19.003-19.285C64.339 66.614 72.827 58 83.342 58s18.94 8.614 18.94 19.286Zm48.068 2.857c0 9.802-7.738 17.714-17.396 17.714-9.658 0-17.454-7.912-17.454-17.714s7.796-17.715 17.454-17.715c9.658 0 17.396 7.913 17.396 17.715Zm-67.01 29.285c-14.759 0-44.34 7.522-44.34 22.5v11.786c0 3.536 2.85 4.286 6.334 4.286h76.012c3.484 0 6.334-.75 6.334-4.286v-11.786c0-14.978-29.58-22.5-44.34-22.5Zm43.464 1.425c.903.018 1.681.033 2.196.033 14.759 0 45 6.064 45 21.043v9.642c0 3.536-2.85 6.429-6.334 6.429h-32.812c.697-1.993 1.141-4.179 1.141-6.429l-.245-10.5c0-9.561-5.614-13.213-11.588-17.1-1.39-.904-2.799-1.821-4.162-2.828a.843.843 0 0 1-.059-.073.594.594 0 0 0-.194-.184c1.596-.139 4.738-.078 7.057-.033Z">
+                        </path>
+                      </svg></span></div>
+                                </div>
+                            </div>
+                            <div class="_24-Ff" role="button">
+                                <div class="_2rlF7">
+                                    <div class="_21nHd"><span dir="auto" title="Test" class="ggj6brxn gfz4du6o r7fjleex g0rxnol2 lhj4utae le5p0ye3 l7jjieqr i0jNr">Test</span></div>
+                                </div>
+                                <div class="zzgSd _3e6xi"><span title="Mummy, You" class="_2YPr_ i0jNr selectable-text copyable-text">Mummy, You</span></div>
+                            </div>
+                            <div class="_1yNrt">
+                                <div class="_1QVfy _3UaCz">
+                                    <div class="_2cNrC">
+                                        <div aria-disabled="false" role="button" tabindex="0" class="_26lC3" data-tab="6" title="Search…" aria-label="Search…"><span data-testid="search-alt" data-icon="search-alt" class=""><svg
+                          viewBox="0 0 24 24" width="24" height="24" class="">
+                          <path fill="currentColor"
+                            d="M15.9 14.3H15l-.3-.3c1-1.1 1.6-2.7 1.6-4.3 0-3.7-3-6.7-6.7-6.7S3 6 3 9.7s3 6.7 6.7 6.7c1.6 0 3.2-.6 4.3-1.6l.3.3v.8l5.1 5.1 1.5-1.5-5-5.2zm-6.2 0c-2.6 0-4.6-2.1-4.6-4.6s2.1-4.6 4.6-4.6 4.6 2.1 4.6 4.6-2 4.6-4.6 4.6z">
+                          </path>
+                        </svg></span></div><span></span>
+                                    </div>
+                                    <div>
+                                        <div class="_2cNrC" data-testid="conversation-menu-button">
+                                            <div aria-disabled="false" role="button" tabindex="0" class="_26lC3" data-tab="6" title="Menu" aria-label="Menu"><span data-testid="menu" data-icon="menu" class=""><svg viewBox="0 0 24 24"
+                            width="24" height="24" class="">
+                            <path fill="currentColor"
+                              d="M12 7a2 2 0 1 0-.001-4.001A2 2 0 0 0 12 7zm0 2a2 2 0 1 0-.001 3.999A2 2 0 0 0 12 9zm0 6a2 2 0 1 0-.001 3.999A2 2 0 0 0 12 15z">
+                            </path>
+                          </svg></span></div><span></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </header><span class="_2K2u4"></span>
+                        <div class="_2K2u4"><span></span></div>
+                        <div class="_1LcQK">
+                            <div class="tm2tP copyable-area"><span></span>
+                                <div class="_27Uai"><span>
+                    <div role="button" tabindex="0" aria-label="Scroll to bottom" class="_1GLVO _165_h" data-tab="7"
+                      style="transform: scaleX(1) scaleY(1); opacity: 1;"><span class="_38VQ8"></span><span data-testid="down" data-icon="down" class="_3K42l"><svg viewBox="0 0 19 20" width="19"
+                          height="20" class="">
+                          <path fill="currentColor" d="m3.8 6.7 5.7 5.7 5.7-5.7 1.6 1.6-7.3 7.2-7.3-7.2 1.6-1.6z">
+                          </path>
+                        </svg></span></div>
+                                </span>
+                            </div>
+                            <div class="_33LGR" tabindex="0">
+                                <div class="_2AL2u"></div>
+                                <div tabindex="-1" class="_3K4-L" data-tab="8" role="region" aria-label="Message list. Press right arrow key on a message to open message context menu.">
+
+
+                                    <div class="content">
+                                        <p>{% for i in context %}
+                                            <div class="row">
+                                                {{i}}
+                                                <!-- {% for x in i %} <div class="row">
+                                                    {{ x }}
+                                            </div>
+                                            {% endfor %} -->
+                                            </div>
+                                            {% endfor %}</p>
+                                        <!-- {{context}} [line.split('/t')[0] for line in lines]-->
+                                    </div>
+
+                                </div>
+                                <div hidden="" style="display: none;"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="VjtCX" style="height: 0px;"></div>
+                    <footer class="_2cYbV">
+                        <div class="_2BU3P tm2tP copyable-area">
+                            <div class="_1SEwr"><span>
+                    <div class="_6h3Ps">
+                      <div class="_3HQNh _1un-p">
+                        <div data-state="closed" class="g0rxnol2 p357zi0d d1pdhp1p bugiwsl0 rj4tx0cq cx8fzybs fyy3ld6e">
+                          <button tabindex="-1" class="lhggkp7q mvj9yovn f804f6gw fyy3ld6e svlsagor dntxsmpk ixn6u0rb s2vc4xk1 o0wkt7aw t1844p82 esbo3we0 qizq0yyl b9fczbqn oybnjv0e" aria-label="Open emojis panel" data-tab="10" style="transform: translateX(0px);">
+                            <div class=""><span data-testid="smiley" data-icon="smiley" class=""><svg viewBox="0 0 24 24" width="24" height="24" class="ekdr8vow dhq51u3o">
+                                  <path fill="currentColor" d="M9.153 11.603c.795 0 1.439-.879 1.439-1.962s-.644-1.962-1.439-1.962-1.439.879-1.439 1.962.644 1.962 1.439 1.962zm-3.204 1.362c-.026-.307-.131 5.218 6.063 5.551 6.066-.25 6.066-5.551 6.066-5.551-6.078 1.416-12.129 0-12.129 0zm11.363 1.108s-.669 1.959-5.051 1.959c-3.505 0-5.388-1.164-5.607-1.959 0 0 5.912 1.055 10.658 0zM11.804 1.011C5.609 1.011.978 6.033.978 12.228s4.826 10.761 11.021 10.761S23.02 18.423 23.02 12.228c.001-6.195-5.021-11.217-11.216-11.217zM12 21.354c-5.273 0-9.381-3.886-9.381-9.159s3.942-9.548 9.215-9.548 9.548 4.275 9.548 9.548c-.001 5.272-4.109 9.159-9.382 9.159zm3.108-9.751c.795 0 1.439-.879 1.439-1.962s-.644-1.962-1.439-1.962-1.439.879-1.439 1.962.644 1.962 1.439 1.962z">
+                                  </path>
+                                </svg></span></div>
+                            </button>
+                        </div>
+                        <div class="_2jitM">
+                            <div class="_2cNrC">
+                                <div aria-disabled="false" role="button" tabindex="0" class="_26lC3" data-tab="10" title="Attach" aria-label="Attach"><span data-testid="clip" data-icon="clip" class=""><svg viewBox="0 0 24 24" width="24" height="24" class="">
+                                  <path fill="currentColor" d="M1.816 15.556v.002c0 1.502.584 2.912 1.646 3.972s2.472 1.647 3.974 1.647a5.58 5.58 0 0 0 3.972-1.645l9.547-9.548c.769-.768 1.147-1.767 1.058-2.817-.079-.968-.548-1.927-1.319-2.698-1.594-1.592-4.068-1.711-5.517-.262l-7.916 7.915c-.881.881-.792 2.25.214 3.261.959.958 2.423 1.053 3.263.215l5.511-5.512c.28-.28.267-.722.053-.936l-.244-.244c-.191-.191-.567-.349-.957.04l-5.506 5.506c-.18.18-.635.127-.976-.214-.098-.097-.576-.613-.213-.973l7.915-7.917c.818-.817 2.267-.699 3.23.262.5.501.802 1.1.849 1.685.051.573-.156 1.111-.589 1.543l-9.547 9.549a3.97 3.97 0 0 1-2.829 1.171 3.975 3.975 0 0 1-2.83-1.173 3.973 3.973 0 0 1-1.172-2.828c0-1.071.415-2.076 1.172-2.83l7.209-7.211c.157-.157.264-.579.028-.814L11.5 4.36a.572.572 0 0 0-.834.018l-7.205 7.207a5.577 5.577 0 0 0-1.645 3.971z">
+                                  </path>
+                                </svg></span></div><span></span>
+                            </div>
+                        </div>
+                </div>
+                <div class="_2lMWa">
+                    <div tabindex="-1" class="p3_M1">
+                        <div tabindex="-1" class="_1UWac _1LbR4">
+                            <div class="_2vbn4" style="visibility: visible;">
+                                <p style="text-align: center;">Designed by Mayankv03</p>
+                            </div>
+                            <div title="Type a message" class="_13NKt copyable-text selectable-text"></div>
+                        </div>
+                    </div>
+                    <div class="_3HQNh _1Ae7k"><button class="_30ggS" aria-label="Voice message" data-tab="11"><span data-testid="ptt" data-icon="ptt" class=""><svg viewBox="0 0 24 24" width="24" height="24" class="">
+                                <path fill="currentColor" d="M11.999 14.942c2.001 0 3.531-1.53 3.531-3.531V4.35c0-2.001-1.53-3.531-3.531-3.531S8.469 2.35 8.469 4.35v7.061c0 2.001 1.53 3.531 3.53 3.531zm6.238-3.53c0 3.531-2.942 6.002-6.237 6.002s-6.237-2.471-6.237-6.002H3.761c0 4.001 3.178 7.297 7.061 7.885v3.884h2.354v-3.884c3.884-.588 7.061-3.884 7.061-7.885h-2z">
+                                </path>
+                              </svg></span></button></div>
+                </div>
+            </div>
+            </span>
+        </div>
+    </div>
+    <div class="_57r8B"></div>
+    </footer>
+    <div hidden="" style="display: none;"></div><span></span>
+    </div>
+    <div hidden="" style="display: none;"></div>
+    </div>
+    </div>
+    <div hidden="" style="display: none;"></div>
+    </div>
+    <div hidden="" style="display: none;"></div>
+    </div>
+</body>
+
+</html>

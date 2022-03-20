@@ -1,0 +1,1255 @@
+<!DOCTYPE html>
+<html class="js serviceworker adownload cssanimations csstransitions webp exiforientation webp-alpha webp-animation webp-lossless" dir="LTR" loc="en-GB" lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>WhatsApp Chat Formatter by Mayankv03</title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="google" content="notranslate">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="description" content="Quickly send and receive WhatsApp messages right from your computer.">
+    <meta name="og:description" content="Quickly send and receive WhatsApp messages right from your computer.">
+    <meta name="og:url" content="https://web.whatsapp.com/">
+    <meta name="og:title" content="WhatsApp Web">
+    <meta name="og:image" content="https://static.facebook.com/images/whatsapp/www/whatsapp-promo.png">
+    <link rel="apple-touch-icon" sizes="194x194" href="/static/css/apple-touch-icon.png" type="image/png">
+    <style>
+        #initial_startup {
+            --startup-background: #f0f2f5;
+            --startup-background-rgb: 240, 242, 245;
+            --startup-icon: #bbc5cb;
+            --secondary-lighter: #8696a0;
+            --primary-title: #41525d;
+            --progress-primary: #00c298;
+            --progress-background: #e9edef
+        }
+        
+        .dark #initial_startup {
+            --startup-background: #111b21;
+            --startup-background-rgb: 17, 27, 33;
+            --startup-icon: #676f73;
+            --primary-title: rgba(233, 237, 239, 0.88);
+            --secondary-lighter: #667781;
+            --progress-primary: #0b846d;
+            --progress-background: #233138
+        }
+        
+        #app,
+        body,
+        html {
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            margin: 0;
+            overflow: hidden
+        }
+        
+        #app {
+            position: absolute;
+            top: 0;
+            left: 0
+        }
+        
+        #initial_startup {
+            position: fixed;
+            top: 0;
+            left: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 100%;
+            user-select: none;
+            background-color: var(--startup-background)
+        }
+        
+        #initial_startup .graphic {
+            margin-top: -40px;
+            color: var(--startup-icon)
+        }
+        
+        #initial_startup .graphic .resume-logo {
+            transform: translateX(calc(50% - 52px / 2))
+        }
+        
+        #initial_startup .graphic::after {
+            position: relative;
+            top: -100%;
+            left: calc(50% - 72px * 2 - 72px / 2);
+            display: block;
+            width: calc(72px * 3);
+            height: 100%;
+            content: '';
+            background: linear-gradient(to right, rgba(var(--startup-background-rgb), .5) 0, rgba(var(--startup-background-rgb), .5) 33.33%, rgba(var(--startup-background-rgb), 0) 44.1%, rgba(var(--startup-background-rgb), 0) 55.8%, rgba(var(--startup-background-rgb), .5) 66.66%, rgba(var(--startup-background-rgb), .5) 100%);
+            opacity: 1;
+            animation: shimmer 1.5s linear .6s infinite
+        }
+        
+        html[dir=rtl] #initial_startup .graphic::after {
+            animation-direction: reverse
+        }
+        
+        @keyframes shimmer {
+            from {
+                left: calc(50% - 72px * 2 - 72px / 2)
+            }
+            to {
+                left: calc(50% - 72px / 2)
+            }
+        }
+        
+        #initial_startup .progress {
+            position: relative;
+            width: 420px;
+            height: 3px;
+            margin-top: 40px
+        }
+        
+        #initial_startup .progress progress {
+            vertical-align: top
+        }
+        
+        #initial_startup .main {
+            margin-top: 40px;
+            font-size: 17px;
+            color: var(--primary-title)
+        }
+        
+        #initial_startup .secondary {
+            margin-top: 12px;
+            font-size: 14px;
+            color: var(--secondary-lighter)
+        }
+        
+        #initial_startup .secondary span {
+            display: inline-block;
+            margin-bottom: 2px;
+            vertical-align: middle
+        }
+        
+        progress {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 100%;
+            height: 3px;
+            margin: 0;
+            color: var(--progress-primary);
+            background-color: var(--progress-background);
+            border: none
+        }
+        
+        progress[value]::-webkit-progress-bar {
+            background-color: var(--progress-background)
+        }
+        
+        progress[value]::-moz-progress-bar,
+        progress[value]::-webkit-progress-value {
+            background-color: var(--progress-primary);
+            transition: width .45s ease
+        }
+    </style>
+    <link href="/static/css/stylex.css" rel="stylesheet">
+    <link href="/static/css/bootstrap.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/static/css/bootstrap_main.css">
+    <link id="favicon" rel="shortcut icon" type="image/png" href="/static/css/icon.png" src="css/icon.png">
+</head>
+
+<body class="web dark">
+    <script data-binary-transparency-hash-key="inline-js-4b79b6dc91a7ee33373b115991c3eb287ed710cfb6708421b4cab682eddbfcbd">
+        try {
+            var systemThemeDark, theme = window.localStorage.getItem(""),
+                systemThemeMode = window.localStorage.getItem("system-theme-mode");
+            if (("true" === systemThemeMode || !theme) && window.matchMedia) {
+                var systemTheme = window.matchMedia("(prefers-color-scheme: dark)");
+                systemThemeDark = systemTheme && systemTheme.matches
+            }
+            var darkTheme = '"dark"' === theme || Boolean(systemThemeDark);
+            darkTheme && document.body.classList.add("dark")
+        } catch (e) {}
+    </script>
+    <div id="app">
+        <div class="_1ADa8 _3Nsgw app-wrapper-web os-win"><span></span><span></span><span></span><span></span><span></span>
+            <div tabindex="-1" class="_1XkO3 two">
+
+                <div class="ldL67 _3sh5K">
+                    <div id="main" class="_1fqrG" data-testid="conversation-panel-wrapper">
+                        <div class="_1PzAL" data-asset-chat-background-dark="true" style="opacity: 0.06;"></div>
+                        <header class="_23P3O">
+                            <div class="_2YnE3" title="Profile Details" role="button">
+                                <div class="_3GlyB" style="height: 40px; width: 40px;">
+                                    <div class="_1lPgH"><span data-testid="default-group" data-icon="default-group" class=""><svg
+                        width="212" height="212" viewBox="0 0 212 212" fill="none" class="">
+                        <path class="background"
+                          d="M105.946.25C164.318.25 211.64 47.596 211.64 106s-47.322 105.75-105.695 105.75C47.571 211.75.25 164.404.25 106S47.571.25 105.946.25Z"
+                          fill="#DFE5E7"></path>
+                        <path class="primary" clip-rule="evenodd"
+                          d="M102.282 77.286c0 10.671-8.425 19.285-18.94 19.285s-19.003-8.614-19.003-19.285C64.339 66.614 72.827 58 83.342 58s18.94 8.614 18.94 19.286Zm48.068 2.857c0 9.802-7.738 17.714-17.396 17.714-9.658 0-17.454-7.912-17.454-17.714s7.796-17.715 17.454-17.715c9.658 0 17.396 7.913 17.396 17.715Zm-67.01 29.285c-14.759 0-44.34 7.522-44.34 22.5v11.786c0 3.536 2.85 4.286 6.334 4.286h76.012c3.484 0 6.334-.75 6.334-4.286v-11.786c0-14.978-29.58-22.5-44.34-22.5Zm43.464 1.425c.903.018 1.681.033 2.196.033 14.759 0 45 6.064 45 21.043v9.642c0 3.536-2.85 6.429-6.334 6.429h-32.812c.697-1.993 1.141-4.179 1.141-6.429l-.245-10.5c0-9.561-5.614-13.213-11.588-17.1-1.39-.904-2.799-1.821-4.162-2.828a.843.843 0 0 1-.059-.073.594.594 0 0 0-.194-.184c1.596-.139 4.738-.078 7.057-.033Z">
+                        </path>
+                      </svg></span></div>
+                                </div>
+                            </div>
+                            <div class="_24-Ff" role="button">
+                                <div class="_2rlF7">
+                                    <div class="_21nHd"><span dir="auto" title="Test" class="ggj6brxn gfz4du6o r7fjleex g0rxnol2 lhj4utae le5p0ye3 l7jjieqr i0jNr">Test</span></div>
+                                </div>
+                                <div class="zzgSd _3e6xi"><span title="Mummy, You" class="_2YPr_ i0jNr selectable-text copyable-text">Mummy, You</span></div>
+                            </div>
+                            <div class="_1yNrt">
+                                <div class="_1QVfy _3UaCz">
+                                    <div class="_2cNrC">
+                                        <div aria-disabled="false" role="button" tabindex="0" class="_26lC3" data-tab="6" title="Search…" aria-label="Search…"><span data-testid="search-alt" data-icon="search-alt" class=""><svg
+                          viewBox="0 0 24 24" width="24" height="24" class="">
+                          <path fill="currentColor"
+                            d="M15.9 14.3H15l-.3-.3c1-1.1 1.6-2.7 1.6-4.3 0-3.7-3-6.7-6.7-6.7S3 6 3 9.7s3 6.7 6.7 6.7c1.6 0 3.2-.6 4.3-1.6l.3.3v.8l5.1 5.1 1.5-1.5-5-5.2zm-6.2 0c-2.6 0-4.6-2.1-4.6-4.6s2.1-4.6 4.6-4.6 4.6 2.1 4.6 4.6-2 4.6-4.6 4.6z">
+                          </path>
+                        </svg></span></div><span></span>
+                                    </div>
+                                    <div>
+                                        <div class="_2cNrC" data-testid="conversation-menu-button">
+                                            <div aria-disabled="false" role="button" tabindex="0" class="_26lC3" data-tab="6" title="Menu" aria-label="Menu"><span data-testid="menu" data-icon="menu" class=""><svg viewBox="0 0 24 24"
+                            width="24" height="24" class="">
+                            <path fill="currentColor"
+                              d="M12 7a2 2 0 1 0-.001-4.001A2 2 0 0 0 12 7zm0 2a2 2 0 1 0-.001 3.999A2 2 0 0 0 12 9zm0 6a2 2 0 1 0-.001 3.999A2 2 0 0 0 12 15z">
+                            </path>
+                          </svg></span></div><span></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </header><span class="_2K2u4"></span>
+                        <div class="_2K2u4"><span></span></div>
+                        <div class="_1LcQK">
+                            <div class="tm2tP copyable-area"><span></span>
+                                <div class="_27Uai"><span>
+                    <div role="button" tabindex="0" aria-label="Scroll to bottom" class="_1GLVO _165_h" data-tab="7"
+                      style="transform: scaleX(1) scaleY(1); opacity: 1;"><span class="_38VQ8"></span><span data-testid="down" data-icon="down" class="_3K42l"><svg viewBox="0 0 19 20" width="19"
+                          height="20" class="">
+                          <path fill="currentColor" d="m3.8 6.7 5.7 5.7 5.7-5.7 1.6 1.6-7.3 7.2-7.3-7.2 1.6-1.6z">
+                          </path>
+                        </svg></span></div>
+                                </span>
+                            </div>
+                            <div class="_33LGR" tabindex="0">
+                                <div class="_2AL2u"></div>
+                                <div tabindex="-1" class="_3K4-L" data-tab="8" role="region" aria-label="Message list. Press right arrow key on a message to open message context menu.">
+                                    <div class="_2wUmf V-zSs focusable-list-item" tabindex="-1">
+                                        <div class="cvjcv EtBAv"><span dir="auto" class="i0jNr">YESTERDAY</span></div>
+                                    </div>
+                                    <div tabindex="-1" class="_2wUmf V-zSs focusable-list-item" data-id="true_120363021478161969@g.us_7A9BC68A3A0B2C82212DFE25D95EEC02_917869085684@c.us">
+                                        <span></span>
+                                        <div class="cvjcv _1p8Qv EtBAv">
+                                            <div class="Nm1g1">
+                                                <div role="button"><span>
+                              <div class="l7jjieqr qt60bha0 mw4yctpw fewfhwl7 kzrzzy77"><span data-testid="lock-small"
+                                  data-icon="lock-small" class=""><svg width="10" height="12" viewBox="0 0 10 12"
+                                    class="">
+                                    <path
+                                      d="M5.008 1.6c1.375 0 2.501 1.074 2.586 2.427l.005.164v1.271h.158c.585 0 1.059.48 1.059 1.07v3.351c0 .59-.474 1.07-1.059 1.07h-5.5c-.582 0-1.057-.48-1.057-1.07V6.531c0-.59.474-1.069 1.058-1.069h.158V4.191c0-1.375 1.075-2.501 2.429-2.586l.163-.005Zm0 1.248c-.696 0-1.272.534-1.337 1.214l-.006.129-.002 1.271H6.35l.001-1.271c0-.653-.47-1.2-1.088-1.319l-.126-.018-.129-.006Z"
+                                      fill="currentColor"></path>
+                                  </svg></span></div><span dir="ltr" class="i0jNr">Messages are end-to-end encrypted. No
+                                one outside of this chat, not even WhatsApp, can read or listen to them. Click to learn
+                                more.</span>
+                                                </span>
+                                            </div><span></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div tabindex="-1" class="_2wUmf V-zSs focusable-list-item" data-id="true_120363021478161969@g.us_314406641_917869085684@c.us"><span></span>
+                                    <div class="cvjcv EtBAv">
+                                        <div class="Nm1g1">
+                                            <div class="_2ad1k"><span dir="ltr" class="i0jNr">You created group “<span dir="auto"
+                                class="i0jNr">Test</span>”</span>
+                                            </div><span></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div tabindex="-1" class="_2wUmf message-out focusable-list-item" data-id="true_120363021478161969@g.us_708669A508D8B3AB255826B34F053599_917869085684@c.us">
+                                    <span></span>
+                                    <div class="cvjcv _1Ilru _8YVHI"><span data-testid="tail-out" data-icon="tail-out" class="_3nrYb"><svg viewBox="0 0 8 13" width="8" height="13" class="">
+                            <path opacity=".13" d="M5.188 1H0v11.193l6.467-8.625C7.526 2.156 6.958 1 5.188 1z"></path>
+                            <path fill="currentColor" d="M5.188 0H0v11.193l6.467-8.625C7.526 1.156 6.958 0 5.188 0z">
+                            </path>
+                          </svg></span>
+                                        <div class="Nm1g1 _22AX6"><span aria-label="You:"></span>
+                                            <div class="_22Msk">
+                                                <div class="copyable-text" data-pre-plain-text="[1:09 pm, 18/03/2022] Mayank: ">
+                                                    <div class="_1Gy50"><span dir="ltr" class="i0jNr selectable-text copyable-text"><span>Good
+                                    afternoon mahi!</span></span><span class="_20bHr _2ui2p"></span></div>
+                                                </div>
+                                                <div class="_1beEj">
+                                                    <div class="gq1t1y46 lak21jic e4p1bexh cr2cog7z le5p0ye3 _1WSmF" data-testid="msg-meta">
+                                                        <span class="l7jjieqr fewfhwl7" dir="auto">1:09 pm</span>
+                                                        <div class="do8e0lj9 l7jjieqr k6y3xtnu"><span data-testid="msg-dblcheck" aria-label=" Read " data-icon="msg-dblcheck" class="_3l4_3"><svg viewBox="0 0 16 15"
+                                      width="16" height="15" class="">
+                                      <path fill="currentColor"
+                                        d="m15.01 3.316-.478-.372a.365.365 0 0 0-.51.063L8.666 9.879a.32.32 0 0 1-.484.033l-.358-.325a.319.319 0 0 0-.484.032l-.378.483a.418.418 0 0 0 .036.541l1.32 1.266c.143.14.361.125.484-.033l6.272-8.048a.366.366 0 0 0-.064-.512zm-4.1 0-.478-.372a.365.365 0 0 0-.51.063L4.566 9.879a.32.32 0 0 1-.484.033L1.891 7.769a.366.366 0 0 0-.515.006l-.423.433a.364.364 0 0 0 .006.514l3.258 3.185c.143.14.361.125.484-.033l6.272-8.048a.365.365 0 0 0-.063-.51z">
+                                      </path>
+                                    </svg></span></div>
+                                                    </div>
+                                                </div>
+                                            </div><span></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div tabindex="-1" class="_2wUmf message-in focusable-list-item" data-id="false_120363021478161969@g.us_7BF2AC18FF74C9831BE887B4F1D7C71C_918225094996@c.us">
+                                    <span></span>
+                                    <div class="cvjcv _1Ilru _8YVHI"><span data-testid="tail-in" data-icon="tail-in" class="_3nrYb"><svg viewBox="0 0 8 13" width="8" height="13" class="">
+                            <path opacity=".13" fill="#0000000"
+                              d="M1.533 3.568 8 12.193V1H2.812C1.042 1 .474 2.156 1.533 3.568z"></path>
+                            <path fill="currentColor" d="M1.533 2.568 8 11.193V0H2.812C1.042 0 .474 1.156 1.533 2.568z">
+                            </path>
+                          </svg></span>
+                                        <div class="Nm1g1 _22AX6">
+                                            <div class="_22Msk">
+                                                <div class="hooVq color-1 _1B9Rc" role=""><span dir="auto" class="a71At ajgl1lbb edeob0r2 i0jNr">Mummy Ji <img crossorigin="anonymous"
+                                  src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+                                  alt="💓" draggable="false" class="b70 emoji wa i0jNr"
+                                  style="background-position: 0px -40px;"><img crossorigin="anonymous"
+                                  src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+                                  alt="💯" draggable="false" class="b71 emoji wa i0jNr"
+                                  style="background-position: -60px -60px;"></span></div>
+                                                <div class="_2jGOb copyable-text" data-pre-plain-text="[1:09 pm, 18/03/2022] Mummy Ji 💓💯: ">
+                                                    <div class="_1Gy50"><span dir="ltr" class="i0jNr selectable-text copyable-text"><span>Good
+                                    morning</span></span><span class="_20bHr"></span></div>
+                                                </div>
+                                                <div class="_1beEj">
+                                                    <div class="gq1t1y46 lak21jic e4p1bexh cr2cog7z le5p0ye3 _1WSmF" data-testid="msg-meta">
+                                                        <span class="l7jjieqr fewfhwl7" dir="auto">1:09 pm</span></div>
+                                                </div>
+                                            </div><span></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div tabindex="-1" class="_2wUmf message-out focusable-list-item" data-id="true_120363021478161969@g.us_7A98A1672103292ECC3B2B2DF7D31B66_917869085684@c.us">
+                                    <span></span>
+                                    <div class="cvjcv _1Ilru _8YVHI"><span data-testid="tail-out" data-icon="tail-out" class="_3nrYb"><svg viewBox="0 0 8 13" width="8" height="13" class="">
+                            <path opacity=".13" d="M5.188 1H0v11.193l6.467-8.625C7.526 2.156 6.958 1 5.188 1z"></path>
+                            <path fill="currentColor" d="M5.188 0H0v11.193l6.467-8.625C7.526 1.156 6.958 0 5.188 0z">
+                            </path>
+                          </svg></span>
+                                        <div class="Nm1g1 _22AX6"><span aria-label="You:"></span>
+                                            <div class="_22Msk">
+                                                <div class="copyable-text" data-pre-plain-text="[1:09 pm, 18/03/2022] Mayank: ">
+                                                    <div class="_1Gy50"><span dir="ltr" class="i0jNr selectable-text copyable-text"><span>How
+                                    are you?</span></span><span class="_20bHr _2ui2p"></span></div>
+                                                </div>
+                                                <div class="_1beEj">
+                                                    <div class="gq1t1y46 lak21jic e4p1bexh cr2cog7z le5p0ye3 _1WSmF" data-testid="msg-meta">
+                                                        <span class="l7jjieqr fewfhwl7" dir="auto">1:09 pm</span>
+                                                        <div class="do8e0lj9 l7jjieqr k6y3xtnu"><span data-testid="msg-dblcheck" aria-label=" Read " data-icon="msg-dblcheck" class="_3l4_3"><svg viewBox="0 0 16 15"
+                                      width="16" height="15" class="">
+                                      <path fill="currentColor"
+                                        d="m15.01 3.316-.478-.372a.365.365 0 0 0-.51.063L8.666 9.879a.32.32 0 0 1-.484.033l-.358-.325a.319.319 0 0 0-.484.032l-.378.483a.418.418 0 0 0 .036.541l1.32 1.266c.143.14.361.125.484-.033l6.272-8.048a.366.366 0 0 0-.064-.512zm-4.1 0-.478-.372a.365.365 0 0 0-.51.063L4.566 9.879a.32.32 0 0 1-.484.033L1.891 7.769a.366.366 0 0 0-.515.006l-.423.433a.364.364 0 0 0 .006.514l3.258 3.185c.143.14.361.125.484-.033l6.272-8.048a.365.365 0 0 0-.063-.51z">
+                                      </path>
+                                    </svg></span></div>
+                                                    </div>
+                                                </div>
+                                            </div><span></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div tabindex="-1" class="_2wUmf _21bY5 message-in focusable-list-item" data-id="false_120363021478161969@g.us_2FE9D063533920FFB2742B25E4053AA2_918225094996@c.us">
+                                    <span></span>
+                                    <div class="cvjcv _1Ilru _8YVHI"><span data-testid="tail-in" data-icon="tail-in" class="_3nrYb"><svg viewBox="0 0 8 13" width="8" height="13" class="">
+                            <path opacity=".13" fill="#0000000"
+                              d="M1.533 3.568 8 12.193V1H2.812C1.042 1 .474 2.156 1.533 3.568z"></path>
+                            <path fill="currentColor" d="M1.533 2.568 8 11.193V0H2.812C1.042 0 .474 1.156 1.533 2.568z">
+                            </path>
+                          </svg></span>
+                                        <div class="Nm1g1 _22AX6">
+                                            <div class="_22Msk">
+                                                <div class="hooVq color-1 _1B9Rc" role=""><span dir="auto" class="a71At ajgl1lbb edeob0r2 i0jNr">Mummy Ji <img crossorigin="anonymous"
+                                  src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+                                  alt="💓" draggable="false" class="b70 emoji wa i0jNr"
+                                  style="background-position: 0px -40px;"><img crossorigin="anonymous"
+                                  src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+                                  alt="💯" draggable="false" class="b71 emoji wa i0jNr"
+                                  style="background-position: -60px -60px;"></span></div>
+                                                <div class="_2jGOb copyable-text" data-pre-plain-text="[1:09 pm, 18/03/2022] Mummy Ji 💓💯: ">
+                                                    <div class="_1Gy50"><span dir="ltr" class="i0jNr selectable-text copyable-text"><span>I'm
+                                    doing great</span></span><span class="_20bHr"></span></div>
+                                                </div>
+                                                <div class="_1beEj">
+                                                    <div class="gq1t1y46 lak21jic e4p1bexh cr2cog7z le5p0ye3 _1WSmF" data-testid="msg-meta">
+                                                        <span class="l7jjieqr fewfhwl7" dir="auto">1:09 pm</span></div>
+                                                </div>
+                                            </div><span></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div tabindex="-1" class="_2wUmf message-in focusable-list-item" data-id="false_120363021478161969@g.us_7B372711DDBAACDE95B699CE37728D2C_918225094996@c.us">
+                                    <span></span>
+                                    <div class="cvjcv _1Ilru">
+                                        <div class="Nm1g1 _22AX6">
+                                            <div class="_22Msk">
+                                                <div class="copyable-text" data-pre-plain-text="[1:09 pm, 18/03/2022] Mummy Ji 💓💯: ">
+                                                    <div class="_1Gy50"><span dir="ltr" class="i0jNr selectable-text copyable-text"><span>Wbu?</span></span><span class="_20bHr"></span></div>
+                                                </div>
+                                                <div class="_1beEj">
+                                                    <div class="gq1t1y46 lak21jic e4p1bexh cr2cog7z le5p0ye3 _1WSmF" data-testid="msg-meta">
+                                                        <span class="l7jjieqr fewfhwl7" dir="auto">1:09 pm</span></div>
+                                                </div>
+                                            </div><span></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div tabindex="-1" class="_2wUmf _21bY5 message-out focusable-list-item" data-id="true_120363021478161969@g.us_4AE966A39D8869D38AF4E38948494F62_917869085684@c.us">
+                                    <span></span>
+                                    <div class="cvjcv _1Ilru _8YVHI"><span data-testid="tail-out" data-icon="tail-out" class="_3nrYb"><svg viewBox="0 0 8 13" width="8" height="13" class="">
+                            <path opacity=".13" d="M5.188 1H0v11.193l6.467-8.625C7.526 2.156 6.958 1 5.188 1z"></path>
+                            <path fill="currentColor" d="M5.188 0H0v11.193l6.467-8.625C7.526 1.156 6.958 0 5.188 0z">
+                            </path>
+                          </svg></span>
+                                        <div class="Nm1g1 _22AX6"><span aria-label="You:"></span>
+                                            <div class="_22Msk">
+                                                <div class="copyable-text" data-pre-plain-text="[1:10 pm, 18/03/2022] Mayank: ">
+                                                    <div class="_1Gy50"><span dir="ltr" class="i0jNr selectable-text copyable-text"><span>I'm
+                                    also great</span></span><span class="_20bHr _2ui2p"></span></div>
+                                                </div>
+                                                <div class="_1beEj">
+                                                    <div class="gq1t1y46 lak21jic e4p1bexh cr2cog7z le5p0ye3 _1WSmF" data-testid="msg-meta">
+                                                        <span class="l7jjieqr fewfhwl7" dir="auto">1:10 pm</span>
+                                                        <div class="do8e0lj9 l7jjieqr k6y3xtnu"><span data-testid="msg-dblcheck" aria-label=" Read " data-icon="msg-dblcheck" class="_3l4_3"><svg viewBox="0 0 16 15"
+                                      width="16" height="15" class="">
+                                      <path fill="currentColor"
+                                        d="m15.01 3.316-.478-.372a.365.365 0 0 0-.51.063L8.666 9.879a.32.32 0 0 1-.484.033l-.358-.325a.319.319 0 0 0-.484.032l-.378.483a.418.418 0 0 0 .036.541l1.32 1.266c.143.14.361.125.484-.033l6.272-8.048a.366.366 0 0 0-.064-.512zm-4.1 0-.478-.372a.365.365 0 0 0-.51.063L4.566 9.879a.32.32 0 0 1-.484.033L1.891 7.769a.366.366 0 0 0-.515.006l-.423.433a.364.364 0 0 0 .006.514l3.258 3.185c.143.14.361.125.484-.033l6.272-8.048a.365.365 0 0 0-.063-.51z">
+                                      </path>
+                                    </svg></span></div>
+                                                    </div>
+                                                </div>
+                                            </div><span></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div tabindex="-1" class="_2wUmf message-out focusable-list-item" data-id="true_120363021478161969@g.us_8EB4A086A02C9359452A708CDC26B731_917869085684@c.us">
+                                    <span></span>
+                                    <div class="cvjcv _1Ilru">
+                                        <div class="Nm1g1 _22AX6"><span aria-label="You:"></span>
+                                            <div class="_22Msk">
+                                                <div class="copyable-text" data-pre-plain-text="[1:10 pm, 18/03/2022] Mayank: ">
+                                                    <div class="_1Gy50"><span dir="ltr" class="i0jNr selectable-text copyable-text"><span>How
+                                    are studies going</span></span><span class="_20bHr _2ui2p"></span></div>
+                                                </div>
+                                                <div class="_1beEj">
+                                                    <div class="gq1t1y46 lak21jic e4p1bexh cr2cog7z le5p0ye3 _1WSmF" data-testid="msg-meta">
+                                                        <span class="l7jjieqr fewfhwl7" dir="auto">1:10 pm</span>
+                                                        <div class="do8e0lj9 l7jjieqr k6y3xtnu"><span data-testid="msg-dblcheck" aria-label=" Read " data-icon="msg-dblcheck" class="_3l4_3"><svg viewBox="0 0 16 15"
+                                      width="16" height="15" class="">
+                                      <path fill="currentColor"
+                                        d="m15.01 3.316-.478-.372a.365.365 0 0 0-.51.063L8.666 9.879a.32.32 0 0 1-.484.033l-.358-.325a.319.319 0 0 0-.484.032l-.378.483a.418.418 0 0 0 .036.541l1.32 1.266c.143.14.361.125.484-.033l6.272-8.048a.366.366 0 0 0-.064-.512zm-4.1 0-.478-.372a.365.365 0 0 0-.51.063L4.566 9.879a.32.32 0 0 1-.484.033L1.891 7.769a.366.366 0 0 0-.515.006l-.423.433a.364.364 0 0 0 .006.514l3.258 3.185c.143.14.361.125.484-.033l6.272-8.048a.365.365 0 0 0-.063-.51z">
+                                      </path>
+                                    </svg></span></div>
+                                                    </div>
+                                                </div>
+                                            </div><span></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div tabindex="-1" class="_2wUmf _21bY5 message-in focusable-list-item" data-id="false_120363021478161969@g.us_2601CE8EFBE9723C033D16749C0F5513_918225094996@c.us">
+                                    <span></span>
+                                    <div class="cvjcv _1Ilru _8YVHI"><span data-testid="tail-in" data-icon="tail-in" class="_3nrYb"><svg viewBox="0 0 8 13" width="8" height="13" class="">
+                            <path opacity=".13" fill="#0000000"
+                              d="M1.533 3.568 8 12.193V1H2.812C1.042 1 .474 2.156 1.533 3.568z"></path>
+                            <path fill="currentColor" d="M1.533 2.568 8 11.193V0H2.812C1.042 0 .474 1.156 1.533 2.568z">
+                            </path>
+                          </svg></span>
+                                        <div class="Nm1g1 _22AX6">
+                                            <div class="_22Msk">
+                                                <div class="hooVq color-1 _1B9Rc" role=""><span dir="auto" class="a71At ajgl1lbb edeob0r2 i0jNr">Mummy Ji <img crossorigin="anonymous"
+                                  src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+                                  alt="💓" draggable="false" class="b70 emoji wa i0jNr"
+                                  style="background-position: 0px -40px;"><img crossorigin="anonymous"
+                                  src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+                                  alt="💯" draggable="false" class="b71 emoji wa i0jNr"
+                                  style="background-position: -60px -60px;"></span></div>
+                                                <div class="_2jGOb copyable-text" data-pre-plain-text="[1:10 pm, 18/03/2022] Mummy Ji 💓💯: ">
+                                                    <div class="_1Gy50"><span dir="ltr" class="i0jNr selectable-text copyable-text"><span>They're going quite
+                                    well</span></span><span class="_20bHr"></span></div>
+                                                </div>
+                                                <div class="_1beEj">
+                                                    <div class="gq1t1y46 lak21jic e4p1bexh cr2cog7z le5p0ye3 _1WSmF" data-testid="msg-meta">
+                                                        <span class="l7jjieqr fewfhwl7" dir="auto">1:10 pm</span></div>
+                                                </div>
+                                            </div><span></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div tabindex="-1" class="_2wUmf message-in focusable-list-item" data-id="false_120363021478161969@g.us_3DA5ECC0D524CB208A9067E362B2151B_918225094996@c.us">
+                                    <span></span>
+                                    <div class="cvjcv _1Ilru">
+                                        <div class="Nm1g1 _22AX6">
+                                            <div class="_22Msk">
+                                                <div class="copyable-text" data-pre-plain-text="[1:11 pm, 18/03/2022] Mummy Ji 💓💯: ">
+                                                    <div class="_1Gy50"><span dir="ltr" class="i0jNr selectable-text copyable-text"><span>Just
+                                    worried about the final examinations</span></span><span class="_20bHr"></span></div>
+                                                </div>
+                                                <div class="_1beEj">
+                                                    <div class="gq1t1y46 lak21jic e4p1bexh cr2cog7z le5p0ye3 _1WSmF" data-testid="msg-meta">
+                                                        <span class="l7jjieqr fewfhwl7" dir="auto">1:11 pm</span></div>
+                                                </div>
+                                            </div><span></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div tabindex="-1" class="_2wUmf _21bY5 message-out focusable-list-item" data-id="true_120363021478161969@g.us_60D26AD2B4264D99E54EDF1CAB5B9954_917869085684@c.us">
+                                    <span></span>
+                                    <div class="cvjcv _1Ilru _8YVHI"><span data-testid="tail-out" data-icon="tail-out" class="_3nrYb"><svg viewBox="0 0 8 13" width="8" height="13" class="">
+                            <path opacity=".13" d="M5.188 1H0v11.193l6.467-8.625C7.526 2.156 6.958 1 5.188 1z"></path>
+                            <path fill="currentColor" d="M5.188 0H0v11.193l6.467-8.625C7.526 1.156 6.958 0 5.188 0z">
+                            </path>
+                          </svg></span>
+                                        <div class="Nm1g1 _22AX6"><span aria-label="You:"></span>
+                                            <div class="_22Msk">
+                                                <div class="copyable-text" data-pre-plain-text="[1:12 pm, 18/03/2022] Mayank: ">
+                                                    <div class="_1Gy50"><span dir="ltr" class="i0jNr selectable-text copyable-text"><span>Don't worry about
+                                    it</span></span><span class="_20bHr _2ui2p"></span></div>
+                                                </div>
+                                                <div class="_1beEj">
+                                                    <div class="gq1t1y46 lak21jic e4p1bexh cr2cog7z le5p0ye3 _1WSmF" data-testid="msg-meta">
+                                                        <span class="l7jjieqr fewfhwl7" dir="auto">1:12 pm</span>
+                                                        <div class="do8e0lj9 l7jjieqr k6y3xtnu"><span data-testid="msg-dblcheck" aria-label=" Read " data-icon="msg-dblcheck" class="_3l4_3"><svg viewBox="0 0 16 15"
+                                      width="16" height="15" class="">
+                                      <path fill="currentColor"
+                                        d="m15.01 3.316-.478-.372a.365.365 0 0 0-.51.063L8.666 9.879a.32.32 0 0 1-.484.033l-.358-.325a.319.319 0 0 0-.484.032l-.378.483a.418.418 0 0 0 .036.541l1.32 1.266c.143.14.361.125.484-.033l6.272-8.048a.366.366 0 0 0-.064-.512zm-4.1 0-.478-.372a.365.365 0 0 0-.51.063L4.566 9.879a.32.32 0 0 1-.484.033L1.891 7.769a.366.366 0 0 0-.515.006l-.423.433a.364.364 0 0 0 .006.514l3.258 3.185c.143.14.361.125.484-.033l6.272-8.048a.365.365 0 0 0-.063-.51z">
+                                      </path>
+                                    </svg></span></div>
+                                                    </div>
+                                                </div>
+                                            </div><span></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div tabindex="-1" class="_2wUmf _21bY5 message-out focusable-list-item" data-id="true_120363021478161969@g.us_80E30FC7C78DEA87DD9FA1D30F7BA609_917869085684@c.us">
+                                    <span></span>
+                                    <div class="cvjcv _1Ilru">
+                                        <div class="Nm1g1 _22AX6">
+                                            <div class="_22Msk">
+                                                <div class="copyable-text" data-pre-plain-text="[1:12 pm, 18/03/2022] Mayank: ">
+                                                    <div class="_1Gy50"><span dir="ltr" class="i0jNr selectable-text copyable-text"><span>I'm
+                                    sure they will go pretty well</span></span><span class="_20bHr _2ui2p"></span></div>
+                                                </div>
+                                                <div class="_1beEj">
+                                                    <div class="gq1t1y46 lak21jic e4p1bexh cr2cog7z le5p0ye3 _1WSmF" data-testid="msg-meta">
+                                                        <span class="l7jjieqr fewfhwl7" dir="auto">1:12 pm</span>
+                                                        <div class="do8e0lj9 l7jjieqr k6y3xtnu"><span data-testid="msg-dblcheck" aria-label=" Read " data-icon="msg-dblcheck" class="_3l4_3"><svg viewBox="0 0 16 15"
+                                      width="16" height="15" class="">
+                                      <path fill="currentColor"
+                                        d="m15.01 3.316-.478-.372a.365.365 0 0 0-.51.063L8.666 9.879a.32.32 0 0 1-.484.033l-.358-.325a.319.319 0 0 0-.484.032l-.378.483a.418.418 0 0 0 .036.541l1.32 1.266c.143.14.361.125.484-.033l6.272-8.048a.366.366 0 0 0-.064-.512zm-4.1 0-.478-.372a.365.365 0 0 0-.51.063L4.566 9.879a.32.32 0 0 1-.484.033L1.891 7.769a.366.366 0 0 0-.515.006l-.423.433a.364.364 0 0 0 .006.514l3.258 3.185c.143.14.361.125.484-.033l6.272-8.048a.365.365 0 0 0-.063-.51z">
+                                      </path>
+                                    </svg></span></div>
+                                                    </div>
+                                                </div>
+                                            </div><span></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div tabindex="-1" class="_2wUmf message-out focusable-list-item" data-id="true_120363021478161969@g.us_B49B4D59426EA8D06804E2C3F1AE2390_917869085684@c.us">
+                                    <span></span>
+                                    <div class="cvjcv _1Ilru">
+                                        <div class="Nm1g1 _22AX6"><span aria-label="You:"></span>
+                                            <div class="_22Msk">
+                                                <div class="copyable-text" data-pre-plain-text="[1:12 pm, 18/03/2022] Mayank: ">
+                                                    <div class="_1Gy50"><span dir="ltr" class="i0jNr selectable-text copyable-text"><span>All
+                                    the best!</span></span><span class="_20bHr _2ui2p"></span></div>
+                                                </div>
+                                                <div class="_1beEj">
+                                                    <div class="gq1t1y46 lak21jic e4p1bexh cr2cog7z le5p0ye3 _1WSmF" data-testid="msg-meta">
+                                                        <span class="l7jjieqr fewfhwl7" dir="auto">1:12 pm</span>
+                                                        <div class="do8e0lj9 l7jjieqr k6y3xtnu"><span data-testid="msg-dblcheck" aria-label=" Read " data-icon="msg-dblcheck" class="_3l4_3"><svg viewBox="0 0 16 15"
+                                      width="16" height="15" class="">
+                                      <path fill="currentColor"
+                                        d="m15.01 3.316-.478-.372a.365.365 0 0 0-.51.063L8.666 9.879a.32.32 0 0 1-.484.033l-.358-.325a.319.319 0 0 0-.484.032l-.378.483a.418.418 0 0 0 .036.541l1.32 1.266c.143.14.361.125.484-.033l6.272-8.048a.366.366 0 0 0-.064-.512zm-4.1 0-.478-.372a.365.365 0 0 0-.51.063L4.566 9.879a.32.32 0 0 1-.484.033L1.891 7.769a.366.366 0 0 0-.515.006l-.423.433a.364.364 0 0 0 .006.514l3.258 3.185c.143.14.361.125.484-.033l6.272-8.048a.365.365 0 0 0-.063-.51z">
+                                      </path>
+                                    </svg></span></div>
+                                                    </div>
+                                                </div>
+                                            </div><span></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div tabindex="-1" class="_2wUmf message-in focusable-list-item" data-id="false_120363021478161969@g.us_D360A7F6FEB34E6C21036E41F88CC687_918225094996@c.us">
+                                    <span></span>
+                                    <div class="cvjcv _1Ilru _8YVHI"><span data-testid="tail-in" data-icon="tail-in" class="_3nrYb"><svg viewBox="0 0 8 13" width="8" height="13" class="">
+                            <path opacity=".13" fill="#0000000"
+                              d="M1.533 3.568 8 12.193V1H2.812C1.042 1 .474 2.156 1.533 3.568z"></path>
+                            <path fill="currentColor" d="M1.533 2.568 8 11.193V0H2.812C1.042 0 .474 1.156 1.533 2.568z">
+                            </path>
+                          </svg></span>
+                                        <div class="Nm1g1 _22AX6">
+                                            <div class="_22Msk">
+                                                <div class="hooVq color-1 _1B9Rc" role=""><span dir="auto" class="a71At ajgl1lbb edeob0r2 i0jNr">Mummy Ji <img crossorigin="anonymous"
+                                  src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+                                  alt="💓" draggable="false" class="b70 emoji wa i0jNr"
+                                  style="background-position: 0px -40px;"><img crossorigin="anonymous"
+                                  src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+                                  alt="💯" draggable="false" class="b71 emoji wa i0jNr"
+                                  style="background-position: -60px -60px;"></span></div>
+                                                <div class="_2jGOb copyable-text" data-pre-plain-text="[1:12 pm, 18/03/2022] Mummy Ji 💓💯: ">
+                                                    <div class="_1Gy50"><span dir="ltr" class="i0jNr selectable-text copyable-text"><span>Thanks Mayank</span></span><span class="_20bHr"></span></div>
+                                                </div>
+                                                <div class="_1beEj">
+                                                    <div class="gq1t1y46 lak21jic e4p1bexh cr2cog7z le5p0ye3 _1WSmF" data-testid="msg-meta">
+                                                        <span class="l7jjieqr fewfhwl7" dir="auto">1:12 pm</span></div>
+                                                </div>
+                                            </div><span></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div tabindex="-1" class="_2wUmf _21bY5 message-out focusable-list-item" data-id="true_120363021478161969@g.us_D2A9D2375B65EFB09D451EAE9FDD6F29_917869085684@c.us">
+                                    <span></span>
+                                    <div class="cvjcv _1Ilru _8YVHI"><span data-testid="tail-out" data-icon="tail-out" class="_3nrYb"><svg viewBox="0 0 8 13" width="8" height="13" class="">
+                            <path opacity=".13" d="M5.188 1H0v11.193l6.467-8.625C7.526 2.156 6.958 1 5.188 1z"></path>
+                            <path fill="currentColor" d="M5.188 0H0v11.193l6.467-8.625C7.526 1.156 6.958 0 5.188 0z">
+                            </path>
+                          </svg></span>
+                                        <div class="Nm1g1 _22AX6"><span aria-label="You:"></span>
+                                            <div class="_22Msk">
+                                                <div class="copyable-text" data-pre-plain-text="[1:13 pm, 18/03/2022] Mayank: ">
+                                                    <div class="_1Gy50"><span dir="auto" class="i0jNr selectable-text copyable-text"><span>...</span></span><span class="_20bHr _2ui2p"></span></div>
+                                                </div>
+                                                <div class="_1beEj">
+                                                    <div class="gq1t1y46 lak21jic e4p1bexh cr2cog7z le5p0ye3 _1WSmF" data-testid="msg-meta">
+                                                        <span class="l7jjieqr fewfhwl7" dir="auto">1:13 pm</span>
+                                                        <div class="do8e0lj9 l7jjieqr k6y3xtnu"><span data-testid="msg-dblcheck" aria-label=" Read " data-icon="msg-dblcheck" class="_3l4_3"><svg viewBox="0 0 16 15"
+                                      width="16" height="15" class="">
+                                      <path fill="currentColor"
+                                        d="m15.01 3.316-.478-.372a.365.365 0 0 0-.51.063L8.666 9.879a.32.32 0 0 1-.484.033l-.358-.325a.319.319 0 0 0-.484.032l-.378.483a.418.418 0 0 0 .036.541l1.32 1.266c.143.14.361.125.484-.033l6.272-8.048a.366.366 0 0 0-.064-.512zm-4.1 0-.478-.372a.365.365 0 0 0-.51.063L4.566 9.879a.32.32 0 0 1-.484.033L1.891 7.769a.366.366 0 0 0-.515.006l-.423.433a.364.364 0 0 0 .006.514l3.258 3.185c.143.14.361.125.484-.033l6.272-8.048a.365.365 0 0 0-.063-.51z">
+                                      </path>
+                                    </svg></span></div>
+                                                    </div>
+                                                </div>
+                                            </div><span></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div tabindex="-1" class="_2wUmf _21bY5 message-out focusable-list-item" data-id="true_120363021478161969@g.us_C13FDF572FFDBF6BE9315674779383CB_917869085684@c.us">
+                                    <span></span>
+                                    <div class="cvjcv _1Ilru">
+                                        <div class="Nm1g1 _22AX6">
+                                            <div class="_22Msk">
+                                                <div class="copyable-text" data-pre-plain-text="[1:13 pm, 18/03/2022] Mayank: ">
+                                                    <div class="_1Gy50"><span dir="ltr" class="i0jNr selectable-text copyable-text"><span>Test
+                                    for emojis</span></span><span class="_20bHr _2ui2p"></span></div>
+                                                </div>
+                                                <div class="_1beEj">
+                                                    <div class="gq1t1y46 lak21jic e4p1bexh cr2cog7z le5p0ye3 _1WSmF" data-testid="msg-meta">
+                                                        <span class="l7jjieqr fewfhwl7" dir="auto">1:13 pm</span>
+                                                        <div class="do8e0lj9 l7jjieqr k6y3xtnu"><span data-testid="msg-dblcheck" aria-label=" Read " data-icon="msg-dblcheck" class="_3l4_3"><svg viewBox="0 0 16 15"
+                                      width="16" height="15" class="">
+                                      <path fill="currentColor"
+                                        d="m15.01 3.316-.478-.372a.365.365 0 0 0-.51.063L8.666 9.879a.32.32 0 0 1-.484.033l-.358-.325a.319.319 0 0 0-.484.032l-.378.483a.418.418 0 0 0 .036.541l1.32 1.266c.143.14.361.125.484-.033l6.272-8.048a.366.366 0 0 0-.064-.512zm-4.1 0-.478-.372a.365.365 0 0 0-.51.063L4.566 9.879a.32.32 0 0 1-.484.033L1.891 7.769a.366.366 0 0 0-.515.006l-.423.433a.364.364 0 0 0 .006.514l3.258 3.185c.143.14.361.125.484-.033l6.272-8.048a.365.365 0 0 0-.063-.51z">
+                                      </path>
+                                    </svg></span></div>
+                                                    </div>
+                                                </div>
+                                            </div><span></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div tabindex="-1" class="_2wUmf _21bY5 message-out focusable-list-item" data-id="true_120363021478161969@g.us_2AF75DBFB0367D2E3B779FB8BBCC3512_917869085684@c.us">
+                                    <span></span>
+                                    <div class="cvjcv _1Ilru">
+                                        <div class="Nm1g1 _22AX6">
+                                            <div class="_22Msk">
+                                                <div class="copyable-text" data-pre-plain-text="[1:13 pm, 18/03/2022] Mayank: ">
+                                                    <div class="_1Gy50"><span dir="auto" class="i0jNr selectable-text copyable-text"><span>..</span></span><span class="_20bHr _2ui2p"></span></div>
+                                                </div>
+                                                <div class="_1beEj">
+                                                    <div class="gq1t1y46 lak21jic e4p1bexh cr2cog7z le5p0ye3 _1WSmF" data-testid="msg-meta">
+                                                        <span class="l7jjieqr fewfhwl7" dir="auto">1:13 pm</span>
+                                                        <div class="do8e0lj9 l7jjieqr k6y3xtnu"><span data-testid="msg-dblcheck" aria-label=" Read " data-icon="msg-dblcheck" class="_3l4_3"><svg viewBox="0 0 16 15"
+                                      width="16" height="15" class="">
+                                      <path fill="currentColor"
+                                        d="m15.01 3.316-.478-.372a.365.365 0 0 0-.51.063L8.666 9.879a.32.32 0 0 1-.484.033l-.358-.325a.319.319 0 0 0-.484.032l-.378.483a.418.418 0 0 0 .036.541l1.32 1.266c.143.14.361.125.484-.033l6.272-8.048a.366.366 0 0 0-.064-.512zm-4.1 0-.478-.372a.365.365 0 0 0-.51.063L4.566 9.879a.32.32 0 0 1-.484.033L1.891 7.769a.366.366 0 0 0-.515.006l-.423.433a.364.364 0 0 0 .006.514l3.258 3.185c.143.14.361.125.484-.033l6.272-8.048a.365.365 0 0 0-.063-.51z">
+                                      </path>
+                                    </svg></span></div>
+                                                    </div>
+                                                </div>
+                                            </div><span></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div tabindex="-1" class="_2wUmf message-out focusable-list-item" data-id="true_120363021478161969@g.us_EBAD849CAE09522FB6BF8505E6FDDDE4_917869085684@c.us">
+                                    <span></span>
+                                    <div class="cvjcv _1Ilru">
+                                        <div class="Nm1g1 _22AX6"><span aria-label="You:"></span>
+                                            <div class="_22Msk">
+                                                <div class="copyable-text" data-pre-plain-text="[1:13 pm, 18/03/2022] Mayank: ">
+                                                    <div class="_1Gy50">
+                                                        <div class="JwMbj i0jNr selectable-text copyable-text"><span class="_3R6rC"><img
+                                      crossorigin="anonymous"
+                                      src="./(168) WhatsApp_files/ca4d318e0a1519cffe6030ba0fbd2bf1_w_2058-64.png"
+                                      alt="😌" draggable="false"
+                                      class="_2UdhN _1xeoG i0jNr selectable-text copyable-text" data-plain-text="😌"
+                                      style="visibility: visible;"></span></div>
+                                                    </div>
+                                                </div>
+                                                <div class="_1beEj">
+                                                    <div class="gq1t1y46 lak21jic e4p1bexh cr2cog7z le5p0ye3 _1WSmF" data-testid="msg-meta">
+                                                        <span class="l7jjieqr fewfhwl7" dir="auto">1:13 pm</span>
+                                                        <div class="do8e0lj9 l7jjieqr k6y3xtnu"><span data-testid="msg-dblcheck" aria-label=" Read " data-icon="msg-dblcheck" class="_3l4_3"><svg viewBox="0 0 16 15"
+                                      width="16" height="15" class="">
+                                      <path fill="currentColor"
+                                        d="m15.01 3.316-.478-.372a.365.365 0 0 0-.51.063L8.666 9.879a.32.32 0 0 1-.484.033l-.358-.325a.319.319 0 0 0-.484.032l-.378.483a.418.418 0 0 0 .036.541l1.32 1.266c.143.14.361.125.484-.033l6.272-8.048a.366.366 0 0 0-.064-.512zm-4.1 0-.478-.372a.365.365 0 0 0-.51.063L4.566 9.879a.32.32 0 0 1-.484.033L1.891 7.769a.366.366 0 0 0-.515.006l-.423.433a.364.364 0 0 0 .006.514l3.258 3.185c.143.14.361.125.484-.033l6.272-8.048a.365.365 0 0 0-.063-.51z">
+                                      </path>
+                                    </svg></span></div>
+                                                    </div>
+                                                </div>
+                                            </div><span></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div tabindex="-1" class="_2wUmf message-in focusable-list-item" data-id="false_120363021478161969@g.us_8E26AC69C573DEC9F371DEEE179CF9B2_918225094996@c.us">
+                                    <span></span>
+                                    <div class="cvjcv _1Ilru _8YVHI"><span data-testid="tail-in" data-icon="tail-in" class="_3nrYb"><svg viewBox="0 0 8 13" width="8" height="13" class="">
+                            <path opacity=".13" fill="#0000000"
+                              d="M1.533 3.568 8 12.193V1H2.812C1.042 1 .474 2.156 1.533 3.568z"></path>
+                            <path fill="currentColor" d="M1.533 2.568 8 11.193V0H2.812C1.042 0 .474 1.156 1.533 2.568z">
+                            </path>
+                          </svg></span>
+                                        <div class="Nm1g1 _22AX6">
+                                            <div class="_22Msk">
+                                                <div class="hooVq color-1 _1B9Rc" role=""><span dir="auto" class="a71At ajgl1lbb edeob0r2 i0jNr">Mummy Ji <img crossorigin="anonymous"
+                                  src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+                                  alt="💓" draggable="false" class="b70 emoji wa i0jNr"
+                                  style="background-position: 0px -40px;"><img crossorigin="anonymous"
+                                  src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+                                  alt="💯" draggable="false" class="b71 emoji wa i0jNr"
+                                  style="background-position: -60px -60px;"></span></div>
+                                                <div class="_2jGOb copyable-text" data-pre-plain-text="[1:13 pm, 18/03/2022] Mummy Ji 💓💯: ">
+                                                    <div class="_1Gy50">
+                                                        <div class="JwMbj i0jNr selectable-text copyable-text"><span class="_3R6rC"><img
+                                      crossorigin="anonymous"
+                                      src="./(168) WhatsApp_files/ca4d318e0a1519cffe6030ba0fbd2bf1_w_2083-64.png"
+                                      alt="😥" draggable="false"
+                                      class="_2UdhN _1xeoG i0jNr selectable-text copyable-text" data-plain-text="😥"
+                                      style="visibility: visible;"></span></div>
+                                                    </div>
+                                                </div>
+                                                <div class="_1beEj">
+                                                    <div class="gq1t1y46 lak21jic e4p1bexh cr2cog7z le5p0ye3 _1WSmF" data-testid="msg-meta">
+                                                        <span class="l7jjieqr fewfhwl7" dir="auto">1:13 pm</span></div>
+                                                </div>
+                                            </div><span></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div tabindex="-1" class="_2wUmf message-out focusable-list-item" data-id="true_120363021478161969@g.us_0C1590E507BE09138C2BC1A6A6063DB8_917869085684@c.us">
+                                    <span></span>
+                                    <div class="cvjcv _1Ilru _8YVHI"><span data-testid="tail-out" data-icon="tail-out" class="_3nrYb"><svg viewBox="0 0 8 13" width="8" height="13" class="">
+                            <path opacity=".13" d="M5.188 1H0v11.193l6.467-8.625C7.526 2.156 6.958 1 5.188 1z"></path>
+                            <path fill="currentColor" d="M5.188 0H0v11.193l6.467-8.625C7.526 1.156 6.958 0 5.188 0z">
+                            </path>
+                          </svg></span>
+                                        <div class="Nm1g1 _22AX6"><span aria-label="You:"></span>
+                                            <div class="_22Msk">
+                                                <div class="copyable-text" data-pre-plain-text="[1:13 pm, 18/03/2022] Mayank: ">
+                                                    <div class="_1Gy50">
+                                                        <div class="JwMbj i0jNr selectable-text copyable-text"><span class="_3R6rC"><img
+                                      crossorigin="anonymous"
+                                      src="./(168) WhatsApp_files/ca4d318e0a1519cffe6030ba0fbd2bf1_w_2464-64.png"
+                                      alt="🤧" draggable="false"
+                                      class="_2UdhN _1xeoG i0jNr selectable-text copyable-text" data-plain-text="🤧"
+                                      style="visibility: visible;"></span></div>
+                                                    </div>
+                                                </div>
+                                                <div class="_1beEj">
+                                                    <div class="gq1t1y46 lak21jic e4p1bexh cr2cog7z le5p0ye3 _1WSmF" data-testid="msg-meta">
+                                                        <span class="l7jjieqr fewfhwl7" dir="auto">1:13 pm</span>
+                                                        <div class="do8e0lj9 l7jjieqr k6y3xtnu"><span data-testid="msg-dblcheck" aria-label=" Read " data-icon="msg-dblcheck" class="_3l4_3"><svg viewBox="0 0 16 15"
+                                      width="16" height="15" class="">
+                                      <path fill="currentColor"
+                                        d="m15.01 3.316-.478-.372a.365.365 0 0 0-.51.063L8.666 9.879a.32.32 0 0 1-.484.033l-.358-.325a.319.319 0 0 0-.484.032l-.378.483a.418.418 0 0 0 .036.541l1.32 1.266c.143.14.361.125.484-.033l6.272-8.048a.366.366 0 0 0-.064-.512zm-4.1 0-.478-.372a.365.365 0 0 0-.51.063L4.566 9.879a.32.32 0 0 1-.484.033L1.891 7.769a.366.366 0 0 0-.515.006l-.423.433a.364.364 0 0 0 .006.514l3.258 3.185c.143.14.361.125.484-.033l6.272-8.048a.365.365 0 0 0-.063-.51z">
+                                      </path>
+                                    </svg></span></div>
+                                                    </div>
+                                                </div>
+                                            </div><span></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div tabindex="-1" class="_2wUmf message-in focusable-list-item" data-id="false_120363021478161969@g.us_B8485691DEFFF571B65DC643729B3190_918225094996@c.us">
+                                    <span></span>
+                                    <div class="cvjcv _1Ilru _8YVHI"><span data-testid="tail-in" data-icon="tail-in" class="_3nrYb"><svg viewBox="0 0 8 13" width="8" height="13" class="">
+                            <path opacity=".13" fill="#0000000"
+                              d="M1.533 3.568 8 12.193V1H2.812C1.042 1 .474 2.156 1.533 3.568z"></path>
+                            <path fill="currentColor" d="M1.533 2.568 8 11.193V0H2.812C1.042 0 .474 1.156 1.533 2.568z">
+                            </path>
+                          </svg></span>
+                                        <div class="Nm1g1 _22AX6">
+                                            <div class="_22Msk">
+                                                <div class="hooVq color-1 _1B9Rc" role=""><span dir="auto" class="a71At ajgl1lbb edeob0r2 i0jNr">Mummy Ji <img crossorigin="anonymous"
+                                  src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+                                  alt="💓" draggable="false" class="b70 emoji wa i0jNr"
+                                  style="background-position: 0px -40px;"><img crossorigin="anonymous"
+                                  src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+                                  alt="💯" draggable="false" class="b71 emoji wa i0jNr"
+                                  style="background-position: -60px -60px;"></span></div>
+                                                <div class="_2jGOb copyable-text" data-pre-plain-text="[1:13 pm, 18/03/2022] Mummy Ji 💓💯: ">
+                                                    <div class="_1Gy50">
+                                                        <div class="JwMbj i0jNr selectable-text copyable-text"><span class="_3R6rC"><img
+                                      crossorigin="anonymous"
+                                      src="./(168) WhatsApp_files/ca4d318e0a1519cffe6030ba0fbd2bf1_w_2394-64.png"
+                                      alt="🤔" draggable="false"
+                                      class="_2UdhN _1xeoG i0jNr selectable-text copyable-text" data-plain-text="🤔"
+                                      style="visibility: visible;"></span></div>
+                                                    </div>
+                                                </div>
+                                                <div class="_1beEj">
+                                                    <div class="gq1t1y46 lak21jic e4p1bexh cr2cog7z le5p0ye3 _1WSmF" data-testid="msg-meta">
+                                                        <span class="l7jjieqr fewfhwl7" dir="auto">1:13 pm</span></div>
+                                                </div>
+                                            </div><span></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div tabindex="-1" class="_2wUmf message-out focusable-list-item" data-id="true_120363021478161969@g.us_0C070347CC2826DC99B8E70FBBE9FABF_917869085684@c.us">
+                                    <span></span>
+                                    <div class="cvjcv _1Ilru _8YVHI"><span data-testid="tail-out" data-icon="tail-out" class="_3nrYb"><svg viewBox="0 0 8 13" width="8" height="13" class="">
+                            <path opacity=".13" d="M5.188 1H0v11.193l6.467-8.625C7.526 2.156 6.958 1 5.188 1z"></path>
+                            <path fill="currentColor" d="M5.188 0H0v11.193l6.467-8.625C7.526 1.156 6.958 0 5.188 0z">
+                            </path>
+                          </svg></span>
+                                        <div class="Nm1g1 _22AX6"><span aria-label="You:"></span>
+                                            <div class="_22Msk">
+                                                <div class="copyable-text" data-pre-plain-text="[1:13 pm, 18/03/2022] Mayank: ">
+                                                    <div class="_1Gy50">
+                                                        <div class="JwMbj i0jNr selectable-text copyable-text"><span class="_3R6rC"><img
+                                      crossorigin="anonymous"
+                                      src="./(168) WhatsApp_files/ca4d318e0a1519cffe6030ba0fbd2bf1_w_2115-64.png"
+                                      alt="🙂" draggable="false"
+                                      class="_2UdhN _1xeoG i0jNr selectable-text copyable-text" data-plain-text="🙂"
+                                      style="visibility: visible;"></span></div>
+                                                    </div>
+                                                </div>
+                                                <div class="_1beEj">
+                                                    <div class="gq1t1y46 lak21jic e4p1bexh cr2cog7z le5p0ye3 _1WSmF" data-testid="msg-meta">
+                                                        <span class="l7jjieqr fewfhwl7" dir="auto">1:13 pm</span>
+                                                        <div class="do8e0lj9 l7jjieqr k6y3xtnu"><span data-testid="msg-dblcheck" aria-label=" Read " data-icon="msg-dblcheck" class="_3l4_3"><svg viewBox="0 0 16 15"
+                                      width="16" height="15" class="">
+                                      <path fill="currentColor"
+                                        d="m15.01 3.316-.478-.372a.365.365 0 0 0-.51.063L8.666 9.879a.32.32 0 0 1-.484.033l-.358-.325a.319.319 0 0 0-.484.032l-.378.483a.418.418 0 0 0 .036.541l1.32 1.266c.143.14.361.125.484-.033l6.272-8.048a.366.366 0 0 0-.064-.512zm-4.1 0-.478-.372a.365.365 0 0 0-.51.063L4.566 9.879a.32.32 0 0 1-.484.033L1.891 7.769a.366.366 0 0 0-.515.006l-.423.433a.364.364 0 0 0 .006.514l3.258 3.185c.143.14.361.125.484-.033l6.272-8.048a.365.365 0 0 0-.063-.51z">
+                                      </path>
+                                    </svg></span></div>
+                                                    </div>
+                                                </div>
+                                            </div><span></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div tabindex="-1" class="_2wUmf message-in focusable-list-item" data-id="false_120363021478161969@g.us_5B02AAFF4AC51949139AF01E708EED2F_918225094996@c.us">
+                                    <span></span>
+                                    <div class="cvjcv _1Ilru _8YVHI"><span data-testid="tail-in" data-icon="tail-in" class="_3nrYb"><svg viewBox="0 0 8 13" width="8" height="13" class="">
+                            <path opacity=".13" fill="#0000000"
+                              d="M1.533 3.568 8 12.193V1H2.812C1.042 1 .474 2.156 1.533 3.568z"></path>
+                            <path fill="currentColor" d="M1.533 2.568 8 11.193V0H2.812C1.042 0 .474 1.156 1.533 2.568z">
+                            </path>
+                          </svg></span>
+                                        <div class="Nm1g1 _22AX6">
+                                            <div class="_22Msk">
+                                                <div class="hooVq color-1 _1B9Rc" role=""><span dir="auto" class="a71At ajgl1lbb edeob0r2 i0jNr">Mummy Ji <img crossorigin="anonymous"
+                                  src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+                                  alt="💓" draggable="false" class="b70 emoji wa i0jNr"
+                                  style="background-position: 0px -40px;"><img crossorigin="anonymous"
+                                  src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+                                  alt="💯" draggable="false" class="b71 emoji wa i0jNr"
+                                  style="background-position: -60px -60px;"></span></div>
+                                                <div class="_2jGOb copyable-text" data-pre-plain-text="[1:13 pm, 18/03/2022] Mummy Ji 💓💯: ">
+                                                    <div class="_1Gy50">
+                                                        <div class="JwMbj i0jNr selectable-text copyable-text"><span class="_3R6rC"><img
+                                      crossorigin="anonymous"
+                                      src="./(168) WhatsApp_files/ca4d318e0a1519cffe6030ba0fbd2bf1_w_2096-64.png"
+                                      alt="😱" draggable="false"
+                                      class="_2UdhN _1xeoG i0jNr selectable-text copyable-text" data-plain-text="😱"
+                                      style="visibility: visible;"></span></div>
+                                                    </div>
+                                                </div>
+                                                <div class="_1beEj">
+                                                    <div class="gq1t1y46 lak21jic e4p1bexh cr2cog7z le5p0ye3 _1WSmF" data-testid="msg-meta">
+                                                        <span class="l7jjieqr fewfhwl7" dir="auto">1:13 pm</span></div>
+                                                </div>
+                                            </div><span></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div tabindex="-1" class="_2wUmf message-out focusable-list-item" data-id="true_120363021478161969@g.us_AB803ED909103C0EB6172C10480FB161_917869085684@c.us">
+                                    <span></span>
+                                    <div class="cvjcv _1Ilru _8YVHI"><span data-testid="tail-out" data-icon="tail-out" class="_3nrYb"><svg viewBox="0 0 8 13" width="8" height="13" class="">
+                            <path opacity=".13" d="M5.188 1H0v11.193l6.467-8.625C7.526 2.156 6.958 1 5.188 1z"></path>
+                            <path fill="currentColor" d="M5.188 0H0v11.193l6.467-8.625C7.526 1.156 6.958 0 5.188 0z">
+                            </path>
+                          </svg></span>
+                                        <div class="Nm1g1 _22AX6"><span aria-label="You:"></span>
+                                            <div class="_22Msk">
+                                                <div class="copyable-text" data-pre-plain-text="[1:14 pm, 18/03/2022] Mayank: ">
+                                                    <div class="_1Gy50">
+                                                        <div class="JwMbj i0jNr selectable-text copyable-text"><span class="_3R6rC"><img
+                                      crossorigin="anonymous"
+                                      src="./(168) WhatsApp_files/ca4d318e0a1519cffe6030ba0fbd2bf1_w_2154-64.png"
+                                      alt="🙈" draggable="false"
+                                      class="_2UdhN _1xeoG i0jNr selectable-text copyable-text" data-plain-text="🙈"
+                                      style="visibility: visible;"></span></div>
+                                                    </div>
+                                                </div>
+                                                <div class="_1beEj">
+                                                    <div class="gq1t1y46 lak21jic e4p1bexh cr2cog7z le5p0ye3 _1WSmF" data-testid="msg-meta">
+                                                        <span class="l7jjieqr fewfhwl7" dir="auto">1:14 pm</span>
+                                                        <div class="do8e0lj9 l7jjieqr k6y3xtnu"><span data-testid="msg-dblcheck" aria-label=" Read " data-icon="msg-dblcheck" class="_3l4_3"><svg viewBox="0 0 16 15"
+                                      width="16" height="15" class="">
+                                      <path fill="currentColor"
+                                        d="m15.01 3.316-.478-.372a.365.365 0 0 0-.51.063L8.666 9.879a.32.32 0 0 1-.484.033l-.358-.325a.319.319 0 0 0-.484.032l-.378.483a.418.418 0 0 0 .036.541l1.32 1.266c.143.14.361.125.484-.033l6.272-8.048a.366.366 0 0 0-.064-.512zm-4.1 0-.478-.372a.365.365 0 0 0-.51.063L4.566 9.879a.32.32 0 0 1-.484.033L1.891 7.769a.366.366 0 0 0-.515.006l-.423.433a.364.364 0 0 0 .006.514l3.258 3.185c.143.14.361.125.484-.033l6.272-8.048a.365.365 0 0 0-.063-.51z">
+                                      </path>
+                                    </svg></span></div>
+                                                    </div>
+                                                </div>
+                                            </div><span></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div tabindex="0" class="_2wUmf message-in focusable-list-item" data-id="false_120363021478161969@g.us_F9591FCA605783F4604DEDC4E4B55ACD_918225094996@c.us">
+                                    <span></span>
+                                    <div class="cvjcv _1Ilru _8YVHI"><span data-testid="tail-in" data-icon="tail-in" class="_3nrYb"><svg viewBox="0 0 8 13" width="8" height="13" class="">
+                            <path opacity=".13" fill="#0000000"
+                              d="M1.533 3.568 8 12.193V1H2.812C1.042 1 .474 2.156 1.533 3.568z"></path>
+                            <path fill="currentColor" d="M1.533 2.568 8 11.193V0H2.812C1.042 0 .474 1.156 1.533 2.568z">
+                            </path>
+                          </svg></span>
+                                        <div class="Nm1g1 _22AX6">
+                                            <div class="_22Msk">
+                                                <div class="hooVq color-1 _1B9Rc" role=""><span dir="auto" class="a71At ajgl1lbb edeob0r2 i0jNr">Mummy Ji <img crossorigin="anonymous"
+                                  src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+                                  alt="💓" draggable="false" class="b70 emoji wa i0jNr"
+                                  style="background-position: 0px -40px;"><img crossorigin="anonymous"
+                                  src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+                                  alt="💯" draggable="false" class="b71 emoji wa i0jNr"
+                                  style="background-position: -60px -60px;"></span></div>
+                                                <div class="_2jGOb copyable-text" data-pre-plain-text="[1:14 pm, 18/03/2022] Mummy Ji 💓💯: ">
+                                                    <div class="_1Gy50">
+                                                        <div class="JwMbj i0jNr selectable-text copyable-text"><span class="_3R6rC"><img
+                                      crossorigin="anonymous"
+                                      src="./(168) WhatsApp_files/ca4d318e0a1519cffe6030ba0fbd2bf1_w_854-64.png"
+                                      alt="🐒" draggable="false"
+                                      class="_2UdhN _1xeoG i0jNr selectable-text copyable-text" data-plain-text="🐒"
+                                      style="visibility: visible;"></span></div>
+                                                    </div>
+                                                </div>
+                                                <div class="_1beEj">
+                                                    <div class="gq1t1y46 lak21jic e4p1bexh cr2cog7z le5p0ye3 _1WSmF" data-testid="msg-meta">
+                                                        <span class="l7jjieqr fewfhwl7" dir="auto">1:14 pm</span></div>
+                                                </div>
+                                            </div><span></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div tabindex="-1" class="_2wUmf _21bY5 message-out focusable-list-item" data-id="true_120363021478161969@g.us_F4F3C6073DCEB3645A5B3944F1B8EE02_917869085684@c.us">
+                                    <span></span>
+                                    <div class="cvjcv _1Ilru _8YVHI"><span data-testid="tail-out" data-icon="tail-out" class="_3nrYb"><svg viewBox="0 0 8 13" width="8" height="13" class="">
+                            <path opacity=".13" d="M5.188 1H0v11.193l6.467-8.625C7.526 2.156 6.958 1 5.188 1z"></path>
+                            <path fill="currentColor" d="M5.188 0H0v11.193l6.467-8.625C7.526 1.156 6.958 0 5.188 0z">
+                            </path>
+                          </svg></span>
+                                        <div class="Nm1g1 _22AX6"><span aria-label="You:"></span>
+                                            <div class="_22Msk">
+                                                <div class="copyable-text" data-pre-plain-text="[1:14 pm, 18/03/2022] Mayank: ">
+                                                    <div class="_1Gy50"><span dir="auto" class="i0jNr selectable-text copyable-text"><span>..</span></span><span class="_20bHr _2ui2p"></span></div>
+                                                </div>
+                                                <div class="_1beEj">
+                                                    <div class="gq1t1y46 lak21jic e4p1bexh cr2cog7z le5p0ye3 _1WSmF" data-testid="msg-meta">
+                                                        <span class="l7jjieqr fewfhwl7" dir="auto">1:14 pm</span>
+                                                        <div class="do8e0lj9 l7jjieqr k6y3xtnu"><span data-testid="msg-dblcheck" aria-label=" Read " data-icon="msg-dblcheck" class="_3l4_3"><svg viewBox="0 0 16 15"
+                                      width="16" height="15" class="">
+                                      <path fill="currentColor"
+                                        d="m15.01 3.316-.478-.372a.365.365 0 0 0-.51.063L8.666 9.879a.32.32 0 0 1-.484.033l-.358-.325a.319.319 0 0 0-.484.032l-.378.483a.418.418 0 0 0 .036.541l1.32 1.266c.143.14.361.125.484-.033l6.272-8.048a.366.366 0 0 0-.064-.512zm-4.1 0-.478-.372a.365.365 0 0 0-.51.063L4.566 9.879a.32.32 0 0 1-.484.033L1.891 7.769a.366.366 0 0 0-.515.006l-.423.433a.364.364 0 0 0 .006.514l3.258 3.185c.143.14.361.125.484-.033l6.272-8.048a.365.365 0 0 0-.063-.51z">
+                                      </path>
+                                    </svg></span></div>
+                                                    </div>
+                                                </div>
+                                            </div><span></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div tabindex="-1" class="_2wUmf _21bY5 message-out focusable-list-item" data-id="true_120363021478161969@g.us_04C782D8A7D58F15350B4D75CE78B446_917869085684@c.us">
+                                    <span></span>
+                                    <div class="cvjcv _1Ilru">
+                                        <div class="Nm1g1 _22AX6">
+                                            <div class="_22Msk">
+                                                <div class="copyable-text" data-pre-plain-text="[1:14 pm, 18/03/2022] Mayank: ">
+                                                    <div class="_1Gy50"><span dir="ltr" class="i0jNr selectable-text copyable-text"><span>Test
+                                    for sticker</span></span><span class="_20bHr _2ui2p"></span></div>
+                                                </div>
+                                                <div class="_1beEj">
+                                                    <div class="gq1t1y46 lak21jic e4p1bexh cr2cog7z le5p0ye3 _1WSmF" data-testid="msg-meta">
+                                                        <span class="l7jjieqr fewfhwl7" dir="auto">1:14 pm</span>
+                                                        <div class="do8e0lj9 l7jjieqr k6y3xtnu"><span data-testid="msg-dblcheck" aria-label=" Read " data-icon="msg-dblcheck" class="_3l4_3"><svg viewBox="0 0 16 15"
+                                      width="16" height="15" class="">
+                                      <path fill="currentColor"
+                                        d="m15.01 3.316-.478-.372a.365.365 0 0 0-.51.063L8.666 9.879a.32.32 0 0 1-.484.033l-.358-.325a.319.319 0 0 0-.484.032l-.378.483a.418.418 0 0 0 .036.541l1.32 1.266c.143.14.361.125.484-.033l6.272-8.048a.366.366 0 0 0-.064-.512zm-4.1 0-.478-.372a.365.365 0 0 0-.51.063L4.566 9.879a.32.32 0 0 1-.484.033L1.891 7.769a.366.366 0 0 0-.515.006l-.423.433a.364.364 0 0 0 .006.514l3.258 3.185c.143.14.361.125.484-.033l6.272-8.048a.365.365 0 0 0-.063-.51z">
+                                      </path>
+                                    </svg></span></div>
+                                                    </div>
+                                                </div>
+                                            </div><span></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div tabindex="-1" class="_2wUmf message-out focusable-list-item" data-id="true_120363021478161969@g.us_57D7B72E6FCEC736DC27BC34EBCD4D00_917869085684@c.us">
+                                    <span></span>
+                                    <div class="cvjcv _1Ilru">
+                                        <div class="Nm1g1 _22AX6"><span aria-label="You:"></span>
+                                            <div class="_22Msk">
+                                                <div class="copyable-text" data-pre-plain-text="[1:14 pm, 18/03/2022] Mayank: ">
+                                                    <div class="_1Gy50"><span dir="auto" class="i0jNr selectable-text copyable-text"><span>..</span></span><span class="_20bHr _2ui2p"></span></div>
+                                                </div>
+                                                <div class="_1beEj">
+                                                    <div class="gq1t1y46 lak21jic e4p1bexh cr2cog7z le5p0ye3 _1WSmF" data-testid="msg-meta">
+                                                        <span class="l7jjieqr fewfhwl7" dir="auto">1:14 pm</span>
+                                                        <div class="do8e0lj9 l7jjieqr k6y3xtnu"><span data-testid="msg-dblcheck" aria-label=" Read " data-icon="msg-dblcheck" class="_3l4_3"><svg viewBox="0 0 16 15"
+                                      width="16" height="15" class="">
+                                      <path fill="currentColor"
+                                        d="m15.01 3.316-.478-.372a.365.365 0 0 0-.51.063L8.666 9.879a.32.32 0 0 1-.484.033l-.358-.325a.319.319 0 0 0-.484.032l-.378.483a.418.418 0 0 0 .036.541l1.32 1.266c.143.14.361.125.484-.033l6.272-8.048a.366.366 0 0 0-.064-.512zm-4.1 0-.478-.372a.365.365 0 0 0-.51.063L4.566 9.879a.32.32 0 0 1-.484.033L1.891 7.769a.366.366 0 0 0-.515.006l-.423.433a.364.364 0 0 0 .006.514l3.258 3.185c.143.14.361.125.484-.033l6.272-8.048a.365.365 0 0 0-.063-.51z">
+                                      </path>
+                                    </svg></span></div>
+                                                    </div>
+                                                </div>
+                                            </div><span></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div tabindex="-1" class="_2wUmf message-in focusable-list-item" data-id="false_120363021478161969@g.us_CD674CD0873861FFA0D5B09076AD129D_918225094996@c.us">
+                                    <span></span>
+                                    <div class="cvjcv _1S-gg _8YVHI"><span data-testid="tail-in" data-icon="tail-in" class="_3nrYb"><svg viewBox="0 0 8 13" width="8" height="13" class="">
+                            <path opacity=".13" fill="#0000000"
+                              d="M1.533 3.568 8 12.193V1H2.812C1.042 1 .474 2.156 1.533 3.568z"></path>
+                            <path fill="currentColor" d="M1.533 2.568 8 11.193V0H2.812C1.042 0 .474 1.156 1.533 2.568z">
+                            </path>
+                          </svg></span>
+                                        <div class="">
+                                            <div class="_26F99 _1u9qp _2ecOY _2JUrU">
+                                                <div class="_3OC33">
+                                                    <div class="hooVq color-1 _1B9Rc" role=""><span dir="auto" class="a71At ajgl1lbb edeob0r2 i0jNr">Mummy Ji <img crossorigin="anonymous"
+                                    src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+                                    alt="💓" draggable="false" class="b70 emoji wa i0jNr"
+                                    style="background-position: 0px -40px;"><img crossorigin="anonymous"
+                                    src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+                                    alt="💯" draggable="false" class="b71 emoji wa i0jNr"
+                                    style="background-position: -60px -60px;"></span></div>
+                                                </div>
+                                                <div class="_3BGWx">
+                                                    <div class="gndfcl4n l8fojup5 paxyh2gw sfeitywo cqsf3vkf ajgl1lbb p357zi0d ac2vgrno laorhtua gfz4du6o r7fjleex g0rxnol2 _263uA">
+                                                        <span class="_35qAh _2afZN _1V-dP"><img class="_3mPXD _9QB_N _1V-dP" draggable="false"
+                                    src="blob:https://web.whatsapp.com/ff4d0f13-c238-4cd6-842f-4e56e1aa6227"
+                                    alt="Sticker with no label"></span></div>
+                                                    <div class="p357zi0d ktfrpxia nu7pwgvd fhf7t426 f8m0rgwh r15c9g6i">
+                                                        <div class="_3Lby7">
+                                                            <div class="gq1t1y46 lak21jic e4p1bexh cr2cog7z le5p0ye3 _1WSmF" data-testid="msg-meta"><span class="l7jjieqr fewfhwl7" dir="auto">1:15 pm</span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="_2HiQn"></div>
+                                                    </div>
+                                                </div>
+                                            </div><span></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div tabindex="-1" class="_2wUmf message-out focusable-list-item" data-id="true_120363021478161969@g.us_7FF89A68317ED5657F5EBF43A0DCF193_917869085684@c.us">
+                                    <span></span>
+                                    <div class="cvjcv _1S-gg _8YVHI fe1wa"><span data-testid="tail-out" data-icon="tail-out" class="_3nrYb"><svg viewBox="0 0 8 13" width="8" height="13" class="">
+                            <path opacity=".13" d="M5.188 1H0v11.193l6.467-8.625C7.526 2.156 6.958 1 5.188 1z"></path>
+                            <path fill="currentColor" d="M5.188 0H0v11.193l6.467-8.625C7.526 1.156 6.958 0 5.188 0z">
+                            </path>
+                          </svg></span>
+                                        <div class=""><span aria-label="You:"></span>
+                                            <div class="_26F99 _2ecOY _2JUrU">
+                                                <div class="_3BGWx">
+                                                    <div class="gndfcl4n l8fojup5 paxyh2gw sfeitywo cqsf3vkf ajgl1lbb p357zi0d ac2vgrno laorhtua gfz4du6o r7fjleex g0rxnol2 _263uA">
+                                                        <span class="_35qAh _2afZN _1V-dP"><img class="_3mPXD _9QB_N _1V-dP" draggable="false"
+                                    src="blob:https://web.whatsapp.com/93eff1e7-5dac-4036-a7f1-9b62395d6d98"
+                                    alt="Sticker with no label"></span></div>
+                                                    <div class="p357zi0d ktfrpxia nu7pwgvd fhf7t426 f8m0rgwh r15c9g6i">
+                                                        <div class="_3Lby7">
+                                                            <div class="gq1t1y46 lak21jic e4p1bexh cr2cog7z le5p0ye3 _1WSmF" data-testid="msg-meta"><span class="l7jjieqr fewfhwl7" dir="auto">1:15 pm</span>
+                                                                <div class="do8e0lj9 l7jjieqr k6y3xtnu"><span data-testid="msg-dblcheck" aria-label=" Read " data-icon="msg-dblcheck" class="_3l4_3"><svg
+                                          viewBox="0 0 16 15" width="16" height="15" class="">
+                                          <path fill="currentColor"
+                                            d="m15.01 3.316-.478-.372a.365.365 0 0 0-.51.063L8.666 9.879a.32.32 0 0 1-.484.033l-.358-.325a.319.319 0 0 0-.484.032l-.378.483a.418.418 0 0 0 .036.541l1.32 1.266c.143.14.361.125.484-.033l6.272-8.048a.366.366 0 0 0-.064-.512zm-4.1 0-.478-.372a.365.365 0 0 0-.51.063L4.566 9.879a.32.32 0 0 1-.484.033L1.891 7.769a.366.366 0 0 0-.515.006l-.423.433a.364.364 0 0 0 .006.514l3.258 3.185c.143.14.361.125.484-.033l6.272-8.048a.365.365 0 0 0-.063-.51z">
+                                          </path>
+                                        </svg></span></div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="_2HiQn"></div>
+                                                    </div>
+                                                </div>
+                                            </div><span></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div tabindex="-1" class="_2wUmf message-in focusable-list-item" data-id="false_120363021478161969@g.us_F0F1C072373A4CBAABE90C67C45951F9_918225094996@c.us">
+                                    <span></span>
+                                    <div class="cvjcv _1S-gg _8YVHI"><span data-testid="tail-in" data-icon="tail-in" class="_3nrYb"><svg viewBox="0 0 8 13" width="8" height="13" class="">
+                            <path opacity=".13" fill="#0000000"
+                              d="M1.533 3.568 8 12.193V1H2.812C1.042 1 .474 2.156 1.533 3.568z"></path>
+                            <path fill="currentColor" d="M1.533 2.568 8 11.193V0H2.812C1.042 0 .474 1.156 1.533 2.568z">
+                            </path>
+                          </svg></span>
+                                        <div class="">
+                                            <div class="_26F99 _1u9qp _2ecOY _2JUrU">
+                                                <div class="_3OC33">
+                                                    <div class="hooVq color-1 _1B9Rc" role=""><span dir="auto" class="a71At ajgl1lbb edeob0r2 i0jNr">Mummy Ji <img crossorigin="anonymous"
+                                    src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+                                    alt="💓" draggable="false" class="b70 emoji wa i0jNr"
+                                    style="background-position: 0px -40px;"><img crossorigin="anonymous"
+                                    src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+                                    alt="💯" draggable="false" class="b71 emoji wa i0jNr"
+                                    style="background-position: -60px -60px;"></span></div>
+                                                </div>
+                                                <div class="_3BGWx">
+                                                    <div class="gndfcl4n l8fojup5 paxyh2gw sfeitywo cqsf3vkf ajgl1lbb p357zi0d ac2vgrno laorhtua gfz4du6o r7fjleex g0rxnol2 _263uA">
+                                                        <span class="_35qAh _2afZN _1V-dP"><img class="_3mPXD _9QB_N _1V-dP" draggable="false"
+                                    src="blob:https://web.whatsapp.com/4175249b-214f-479d-8b73-794d6ff9708f"
+                                    alt="Sticker with no label"></span></div>
+                                                    <div class="p357zi0d ktfrpxia nu7pwgvd fhf7t426 f8m0rgwh r15c9g6i">
+                                                        <div class="_3Lby7">
+                                                            <div class="gq1t1y46 lak21jic e4p1bexh cr2cog7z le5p0ye3 _1WSmF" data-testid="msg-meta"><span class="l7jjieqr fewfhwl7" dir="auto">1:15 pm</span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="_2HiQn"></div>
+                                                    </div>
+                                                </div>
+                                            </div><span></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div tabindex="-1" class="_2wUmf message-out focusable-list-item" data-id="true_120363021478161969@g.us_9D44D82F08F7DED434CD3787BFAFCD40_917869085684@c.us">
+                                    <span></span>
+                                    <div class="cvjcv _1S-gg _8YVHI fe1wa"><span data-testid="tail-out" data-icon="tail-out" class="_3nrYb"><svg viewBox="0 0 8 13" width="8" height="13" class="">
+                            <path opacity=".13" d="M5.188 1H0v11.193l6.467-8.625C7.526 2.156 6.958 1 5.188 1z"></path>
+                            <path fill="currentColor" d="M5.188 0H0v11.193l6.467-8.625C7.526 1.156 6.958 0 5.188 0z">
+                            </path>
+                          </svg></span>
+                                        <div class=""><span aria-label="You:"></span>
+                                            <div class="_26F99 _2ecOY _2JUrU">
+                                                <div class="_3BGWx">
+                                                    <div class="gndfcl4n l8fojup5 paxyh2gw sfeitywo cqsf3vkf ajgl1lbb p357zi0d ac2vgrno laorhtua gfz4du6o r7fjleex g0rxnol2 _263uA">
+                                                        <span class="_35qAh _2afZN _1V-dP">
+                                  <div class="_3mPXD _9QB_N _1V-dP"><img alt="Sticker with no label"
+                                      class="_3mPXD _9QB_N _1V-dP" draggable="false"
+                                      src="blob:https://web.whatsapp.com/c7e5952f-b5d7-4be5-a6b2-23c72999c7c1"
+                                      style="display: none;"><canvas class="_3mPXD _9QB_N _1V-dP" draggable="false"
+                                      style="display: block;" width="256" height="256"></canvas></div>
+                                </span></div>
+                                                    <div class="p357zi0d ktfrpxia nu7pwgvd fhf7t426 f8m0rgwh r15c9g6i">
+                                                        <div class="_3Lby7">
+                                                            <div class="gq1t1y46 lak21jic e4p1bexh cr2cog7z le5p0ye3 _1WSmF" data-testid="msg-meta"><span class="l7jjieqr fewfhwl7" dir="auto">1:15 pm</span>
+                                                                <div class="do8e0lj9 l7jjieqr k6y3xtnu"><span data-testid="msg-dblcheck" aria-label=" Read " data-icon="msg-dblcheck" class="_3l4_3"><svg
+                                          viewBox="0 0 16 15" width="16" height="15" class="">
+                                          <path fill="currentColor"
+                                            d="m15.01 3.316-.478-.372a.365.365 0 0 0-.51.063L8.666 9.879a.32.32 0 0 1-.484.033l-.358-.325a.319.319 0 0 0-.484.032l-.378.483a.418.418 0 0 0 .036.541l1.32 1.266c.143.14.361.125.484-.033l6.272-8.048a.366.366 0 0 0-.064-.512zm-4.1 0-.478-.372a.365.365 0 0 0-.51.063L4.566 9.879a.32.32 0 0 1-.484.033L1.891 7.769a.366.366 0 0 0-.515.006l-.423.433a.364.364 0 0 0 .006.514l3.258 3.185c.143.14.361.125.484-.033l6.272-8.048a.365.365 0 0 0-.063-.51z">
+                                          </path>
+                                        </svg></span></div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="_2HiQn"></div>
+                                                    </div>
+                                                </div>
+                                            </div><span></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div tabindex="-1" class="_2wUmf message-in focusable-list-item" data-id="false_120363021478161969@g.us_0E7455A24B607B3929B4EF1BC2EB0290_918225094996@c.us">
+                                    <span></span>
+                                    <div class="cvjcv _1S-gg _8YVHI"><span data-testid="tail-in" data-icon="tail-in" class="_3nrYb"><svg viewBox="0 0 8 13" width="8" height="13" class="">
+                            <path opacity=".13" fill="#0000000"
+                              d="M1.533 3.568 8 12.193V1H2.812C1.042 1 .474 2.156 1.533 3.568z"></path>
+                            <path fill="currentColor" d="M1.533 2.568 8 11.193V0H2.812C1.042 0 .474 1.156 1.533 2.568z">
+                            </path>
+                          </svg></span>
+                                        <div class="">
+                                            <div class="_26F99 _1u9qp _2ecOY _2JUrU">
+                                                <div class="_3OC33">
+                                                    <div class="hooVq color-1 _1B9Rc" role=""><span dir="auto" class="a71At ajgl1lbb edeob0r2 i0jNr">Mummy Ji <img crossorigin="anonymous"
+                                    src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+                                    alt="💓" draggable="false" class="b70 emoji wa i0jNr"
+                                    style="background-position: 0px -40px;"><img crossorigin="anonymous"
+                                    src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+                                    alt="💯" draggable="false" class="b71 emoji wa i0jNr"
+                                    style="background-position: -60px -60px;"></span></div>
+                                                </div>
+                                                <div class="_3BGWx">
+                                                    <div class="gndfcl4n l8fojup5 paxyh2gw sfeitywo cqsf3vkf ajgl1lbb p357zi0d ac2vgrno laorhtua gfz4du6o r7fjleex g0rxnol2 _263uA">
+                                                        <span class="_35qAh _2afZN _1V-dP"><img class="_3mPXD _9QB_N _1V-dP" draggable="false"
+                                    src="blob:https://web.whatsapp.com/a121bcad-a222-4aa7-93a6-3e392a2557b1"
+                                    alt="Sticker with no label"></span></div>
+                                                    <div class="p357zi0d ktfrpxia nu7pwgvd fhf7t426 f8m0rgwh r15c9g6i">
+                                                        <div class="_3Lby7">
+                                                            <div class="gq1t1y46 lak21jic e4p1bexh cr2cog7z le5p0ye3 _1WSmF" data-testid="msg-meta"><span class="l7jjieqr fewfhwl7" dir="auto">1:16 pm</span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="_2HiQn"></div>
+                                                    </div>
+                                                </div>
+                                            </div><span></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div hidden="" style="display: none;"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="VjtCX" style="height: 0px;"></div>
+                <footer class="_2cYbV">
+                    <div class="_2BU3P tm2tP copyable-area">
+                        <div class="_1SEwr"><span>
+                    <div class="_6h3Ps">
+                      <div class="_3HQNh _1un-p">
+                        <div data-state="closed" class="g0rxnol2 p357zi0d d1pdhp1p bugiwsl0 rj4tx0cq cx8fzybs fyy3ld6e">
+                          <button tabindex="-1" class="lhggkp7q mvj9yovn f804f6gw fyy3ld6e svlsagor dntxsmpk ixn6u0rb s2vc4xk1 o0wkt7aw t1844p82 esbo3we0 qizq0yyl b9fczbqn oybnjv0e" aria-label="Open emojis panel" data-tab="10" style="transform: translateX(0px);">
+                            <div class=""><span data-testid="smiley" data-icon="smiley" class=""><svg viewBox="0 0 24 24" width="24" height="24" class="ekdr8vow dhq51u3o">
+                                  <path fill="currentColor" d="M9.153 11.603c.795 0 1.439-.879 1.439-1.962s-.644-1.962-1.439-1.962-1.439.879-1.439 1.962.644 1.962 1.439 1.962zm-3.204 1.362c-.026-.307-.131 5.218 6.063 5.551 6.066-.25 6.066-5.551 6.066-5.551-6.078 1.416-12.129 0-12.129 0zm11.363 1.108s-.669 1.959-5.051 1.959c-3.505 0-5.388-1.164-5.607-1.959 0 0 5.912 1.055 10.658 0zM11.804 1.011C5.609 1.011.978 6.033.978 12.228s4.826 10.761 11.021 10.761S23.02 18.423 23.02 12.228c.001-6.195-5.021-11.217-11.216-11.217zM12 21.354c-5.273 0-9.381-3.886-9.381-9.159s3.942-9.548 9.215-9.548 9.548 4.275 9.548 9.548c-.001 5.272-4.109 9.159-9.382 9.159zm3.108-9.751c.795 0 1.439-.879 1.439-1.962s-.644-1.962-1.439-1.962-1.439.879-1.439 1.962.644 1.962 1.439 1.962z">
+                                  </path>
+                                </svg></span></div>
+                        </button>
+                    </div>
+                    <div class="_2jitM">
+                        <div class="_2cNrC">
+                            <div aria-disabled="false" role="button" tabindex="0" class="_26lC3" data-tab="10" title="Attach" aria-label="Attach"><span data-testid="clip" data-icon="clip" class=""><svg viewBox="0 0 24 24" width="24" height="24" class="">
+                                  <path fill="currentColor" d="M1.816 15.556v.002c0 1.502.584 2.912 1.646 3.972s2.472 1.647 3.974 1.647a5.58 5.58 0 0 0 3.972-1.645l9.547-9.548c.769-.768 1.147-1.767 1.058-2.817-.079-.968-.548-1.927-1.319-2.698-1.594-1.592-4.068-1.711-5.517-.262l-7.916 7.915c-.881.881-.792 2.25.214 3.261.959.958 2.423 1.053 3.263.215l5.511-5.512c.28-.28.267-.722.053-.936l-.244-.244c-.191-.191-.567-.349-.957.04l-5.506 5.506c-.18.18-.635.127-.976-.214-.098-.097-.576-.613-.213-.973l7.915-7.917c.818-.817 2.267-.699 3.23.262.5.501.802 1.1.849 1.685.051.573-.156 1.111-.589 1.543l-9.547 9.549a3.97 3.97 0 0 1-2.829 1.171 3.975 3.975 0 0 1-2.83-1.173 3.973 3.973 0 0 1-1.172-2.828c0-1.071.415-2.076 1.172-2.83l7.209-7.211c.157-.157.264-.579.028-.814L11.5 4.36a.572.572 0 0 0-.834.018l-7.205 7.207a5.577 5.577 0 0 0-1.645 3.971z">
+                                  </path>
+                                </svg></span></div><span></span>
+                        </div>
+                    </div>
+            </div>
+            <div class="_2lMWa">
+                <div tabindex="-1" class="p3_M1">
+                    <div tabindex="-1" class="_1UWac _1LbR4">
+                        <div class="_2vbn4" style="visibility: visible;">
+                            <p style="text-align: center;">Designed by Mayankv03</p>
+                        </div>
+                        <div title="Type a message" class="_13NKt copyable-text selectable-text"></div>
+                    </div>
+                </div>
+                <div class="_3HQNh _1Ae7k"><button class="_30ggS" aria-label="Voice message" data-tab="11"><span data-testid="ptt" data-icon="ptt" class=""><svg viewBox="0 0 24 24" width="24" height="24" class="">
+                                <path fill="currentColor" d="M11.999 14.942c2.001 0 3.531-1.53 3.531-3.531V4.35c0-2.001-1.53-3.531-3.531-3.531S8.469 2.35 8.469 4.35v7.061c0 2.001 1.53 3.531 3.53 3.531zm6.238-3.53c0 3.531-2.942 6.002-6.237 6.002s-6.237-2.471-6.237-6.002H3.761c0 4.001 3.178 7.297 7.061 7.885v3.884h2.354v-3.884c3.884-.588 7.061-3.884 7.061-7.885h-2z">
+                                </path>
+                              </svg></span></button></div>
+            </div>
+        </div>
+        </span>
+    </div>
+    </div>
+    <div class="_57r8B"></div>
+    </footer>
+    <div hidden="" style="display: none;"></div><span></span>
+    </div>
+    <div hidden="" style="display: none;"></div>
+    </div>
+    </div>
+    <div hidden="" style="display: none;"></div>
+    </div>
+    <div hidden="" style="display: none;"></div>
+    </div>
+</body>
+
+</html>
